@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/aaronmarsh/Desktop/DowntownApp/DowntownApp/MainPages/lovedViewController.swift">
-   </FileRef>
-   <FileRef
       location = "group:DowntownApp.xcodeproj">
    </FileRef>
    <FileRef

@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseFunctions
-class lovedViewController:UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class lovedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
        private var priceArray = [String]()
        private var imagesArray = [String]()

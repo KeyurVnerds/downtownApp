@@ -1,0 +1,479 @@
+//
+//  itemView.swift
+//
+//
+//  Created by Aaron Marsh on 5/18/20.
+//
+
+import UIKit
+import Firebase
+import FirebaseFunctions
+import Kingfisher
+import SafariServices
+class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, SFSafariViewControllerDelegate {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        <#code#>
+//    }
+//
+    
+    
+    @IBOutlet weak var productImageView: UIImageView!
+    
+    @IBOutlet weak var pickerView: UIPickerView!
+    
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+
+    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var variationWheel: UIPickerView!
+    @IBOutlet weak var addButton: UIButton!
+    
+    
+    @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var minusButton: UIButton!
+    
+    @IBOutlet weak var scroll: UIScrollView!
+    
+    @IBOutlet weak var numberLabel: UILabel!
+     var pickerData = [String]()
+    @IBOutlet weak var smallImage1: UIImageView!
+    @IBOutlet weak var smallImage2: UIImageView!
+    
+    @IBOutlet weak var cardView: UIView!
+    @IBOutlet var popUp: UIView!
+    
+    @IBAction func bookMark(_ sender: Any) {
+        save_Item(recordId: globalProductId, base: globalBase)
+    }
+    func presentPopUpView () {
+        var initLayer: UIView {
+            let view = UIView()
+          
+            view.frame.size = popUp.frame.size
+            
+            return view
+        }
+   
+        view.addSubview(initLayer)
+        popUp.frame.origin = CGPoint(x: 700, y: self.view.frame.minY)
+//        popUp.center = self.view.center
+        popUp.layer.borderWidth = 1
+        cardView.layer.borderWidth = 0.5
+        popUp.layer.cornerRadius = 20
+        cardView.layer.borderColor = UIColor.gray.cgColor
+        
+        view.addSubview(popUp)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+   
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        self.pickerData.count
+    }
+    private var image_Urls = [String]()
+    var imagesArray = [Any]()
+    
+
+    @IBOutlet weak var dropDown: UIPickerView!
+    enum CardState {
+          case expanded
+          case collapsed
+      }
+
+
+      // The data to return for the row and component (column) that's being passed in
+
+        
+    
+      func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+          return pickerData[row]
+      }
+
+      //Called when the user changes the selection...
+      func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let  chosenState = pickerData[row]
+         
+          print(chosenState)
+      }
+
+ 
+
+      var visualEffectView:UIVisualEffectView!
+      
+      let cardHeight:CGFloat = 600
+      let cardHandleAreaHeight:CGFloat = 65
+      
+      var cardVisible = false
+      var nextState:CardState {
+          return cardVisible ? .collapsed : .expanded
+      }
+      
+      var runningAnimations = [UIViewPropertyAnimator]()
+      var animationProgressWhenInterrupted:CGFloat = 0
+      
+ 
+    func hideExtra (array: Array<String>) {
+        
+        smallImage2.isHidden = true
+       
+        let count = array.count
+        
+        
+        
+        switch count {
+        case 1:
+           print("1")
+            
+        case 2:
+            smallImage1.isHidden = false
+            
+        default:
+            print("default")
+        }
+    }
+    @objc func smallImage01(_ sender: UITapGestureRecognizer) {
+        print(sender)
+        smallImage1.layer.borderWidth = 2
+           print("It works from code too!")
+       }
+    @objc func smallImage02(_ sender: UITapGestureRecognizer) {
+           print(sender)
+              print("It works from code too!")
+        smallImage2.layer.borderWidth = 2
+          }
+    
+    func imageSetUp () {
+       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(smallImage01(_:)))
+          
+          // add your recognizer to your image
+         smallImage1.addGestureRecognizer(tapGestureRecognizer)
+          
+          // enable user interactions or it won't work!
+        smallImage1.isUserInteractionEnabled = true
+        smallImage1.layer.cornerRadius = 32.5
+        smallImage1.layer.borderColor = UIColor.black.cgColor
+        smallImage1.layer.borderWidth = 1
+        
+        smallImage2.isUserInteractionEnabled = true
+              smallImage2.layer.cornerRadius = 32.5
+              smallImage2.layer.borderColor = UIColor.black.cgColor
+              smallImage2.layer.borderWidth = 1
+         smallImage2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(smallImage02(_:))))
+        
+    }
+    
+         var image: UIImageView {
+                let image = UIImageView()
+    //            let image_url = URL(string: urlList[input])
+                image.frame.size = CGSize(width: 60, height: 60)
+          
+                image.layer.cornerRadius = 30
+                image.clipsToBounds = true
+            
+//            image.center.y = scroll.center.y
+    //            image.kf.setImage(with: image_url)
+            return image
+            }
+    
+    @IBOutlet weak var smallImageScroll: UIScrollView!
+    @IBOutlet weak var descriptionField: UITextView!
+func small_Pic (numner: Int, scroll: UIScrollView, urlList: Array<String>) {
+    func createIm (input: Int) -> UIImageView{
+        var image: UIImageView {
+            let image = UIImageView()
+//            let image_url = URL(string: urlList[input])
+            image.frame.size = CGSize(width: 100, height: 100)
+            image.layer.cornerRadius = 7
+            image.clipsToBounds = true
+            image.backgroundColor = .black
+//            image.kf.setImage(with: image_url)
+        return image
+        }
+        smallImageScroll.addSubview(image)
+        var locationCount = 0
+//        for data in urlList {
+            locationCount += 1
+            
+            createIm(input: 1)
+            
+//        }
+        return image
+    }
+    
+}
+   
+    @IBOutlet weak var holderView: UIView!
+    private func scrollSetUp() {
+        scroll.contentSize = CGSize(width: self.view.frame.width, height: 1500)
+    }
+    private func setProperties(){
+        _ = [UIImage]()
+        let Object = [
+            "id": globalProductId,
+            "base": globalBase
+            
+            
+            
+        ]
+  
+        
+        functions.httpsCallable("moreInfo").call(Object) { (result, error) in
+           if let error = error as NSError? {
+             if error.domain == FunctionsErrorDomain {
+                _ = FunctionsErrorCode(rawValue: error.code)
+                _ = error.localizedDescription
+                _ = error.userInfo[FunctionsErrorDetailsKey]
+             }
+             // ...
+           }
+            if let variations = (result?.data as? [String: Any])?["variations"]as? Array<String>{
+                
+                                variations.forEach { variety in
+                                    self.pickerData.append(variety)
+                                    print(variety)
+                                }
+                self.pickerView.reloadAllComponents()
+                print(variations.count)
+                
+                
+            }
+            if let urls = (result?.data as? [String: Any])?["images"]as? Array<String>{
+                let description_Text = (result?.data as? [String: Any])?["description"]as? String
+               
+                self.descriptionField.text = nil
+                self.descriptionField.text = description_Text
+                let height = self.descriptionField.contentSize.height
+                self.scroll.contentSize = CGSize(width: self.view.frame.width, height: 1600 + height)
+                let hasNotch = increaseH()
+                     if hasNotch == false {
+                         print("No kkkkkkkkkk")
+                         
+                        self.scroll.contentSize = CGSize(width: self.scroll.frame.width, height: self.scroll.frame.height + height + 300)
+//                        self.descriptionField.contentSize = CGSize(width: self.descriptionField.frame.width, height: self.descriptionField.frame.height + 200)
+                     }
+                print(description_Text!)
+                self.descriptionField.isEditable = false
+                self.image_Urls = urls
+//                let image1 = self.small_Pic(numner: self.imagesArray.count, scroll: self.smallImageScroll, urlList: self.image_Urls) as! UIImageView
+//                self.smallImageScroll.addSubview(image1)
+                
+                print(urls)
+                var counter = -1
+                    for word in urls {
+                        print("count" , counter)
+                            print(word)
+                            let url = URL(string: word )
+                            URLSession.shared.dataTask(with: url!) { data, response, error in
+                                guard
+                                    let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                                    let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                                    let data = data, error == nil,
+                                    let image = UIImage(data: data)
+                                    else { return }
+                                DispatchQueue.main.async() {
+                                    self.imagesArray.append(image)
+                                   
+                                    self.productImageView.image = (self.imagesArray[0] as! UIImage)
+                                    self.smallImage1.image = (self.imagesArray[counter] as! UIImage)
+                                    self.hideViews()
+                            }
+                            }.resume()
+                           
+                  counter += 1
+                }
+            }
+     
+                   
+            
+//            let description = (result?.data as? [String: Any])?["description"] as! String
+//            print(description)
+//
+         
+
+           
+               
+         }
+        
+        priceTag.text = "$" + globalProductPrice
+        
+        productName.text = globalProductName
+        
+        
+        
+        
+        
+    }
+
+        var itemNumber = 10
+    @IBAction func purchaseClicked(_ sender: Any) {
+        
+//        pay(productId: globalProductId, base: globalBase, qaunity: itemNumber)
+      let urlString = "https://downtown-be.web.app?qaunity=\(1)&product=\(globalProductId)"
+print(urlString, "#####")
+      if let url = URL(string: urlString) {
+        
+          let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+          vc.delegate = self
+
+          present(vc, animated: true)
+      }
+
+         
+    }
+    var imageIndex: Int = 0
+
+    
+    @IBAction func buttonTapped(_sender: UIButton) {
+        
+        if _sender == addButton {
+        itemNumber += 1
+            
+        numberLabel.text = String(itemNumber)
+            
+        }
+        else {
+            if itemNumber > 1{
+                itemNumber -= 1
+                
+                numberLabel.text = String(itemNumber)
+            }
+            
+        }
+    }
+    @IBOutlet weak var smallTag: UILabel!
+   
+    @IBOutlet weak var priceTag: UILabel!
+    
+    func hideViews() {
+        smallTag.isHidden = true
+        
+        priceTag.textColor = .black
+        
+        
+        
+    }
+    func style (){
+//        descriptionField.layer.borderWidth = 0.3
+        brandLabel.layer.cornerRadius = 7
+        brandLabel.clipsToBounds = true
+        brandLabel.textColor = #colorLiteral(red: 0.9569, green: 0.7569, blue: 0.0941, alpha: 1)
+        brandLabel.layer.borderWidth = 0.09
+        brandLabel.layer.borderColor = UIColor.black.cgColor
+        productImageView.image = UIImage(named: "CAT-1")
+//        holderView.layer.cornerRadius = 15
+//        holderView.layer.shadowOpacity = 0.5
+//        holderView.layer.shadowOffset = .zero
+//        holderView.layer.borderWidth = 0.2
+    
+    }
+ 
+    func pickerViewCustomize () {
+        let pv = pickerView
+        pv?.layer.borderWidth = 2
+        pv?.layer.cornerRadius = 5
+    }
+    override func viewDidLoad() {
+        
+        itemNumber = 1
+        style()
+        scrollSetUp()
+        imageSetUp()
+        setProperties()
+        hideViews()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+         pickerViewCustomize()
+//        setupCard()
+//        self.small_Pic(numner: self.imagesArray.count, scroll: self.smallImageScroll, urlList: self.image_Urls)
+//        //                self.smallImageScroll.addSubview(image1)
+        smallImageScroll.addSubview(image)
+        
+
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+         
+//        pageControl.numberOfPages = imagesArray.count
+//
+//        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swiped(gesture:))) // put : at the end of method name
+//        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+//        productImageView.isUserInteractionEnabled = true
+//        self.productImageView.addGestureRecognizer(swipeRight)
+//
+//        let swipeLeft = UISwipeGestureRecognizer(target: self, action:#selector(swiped(gesture:)))// put : at the end of method name
+//        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+//        self.productImageView.addGestureRecognizer(swipeLeft)
+//
+    }
+    
+    @objc func swiped(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizer.Direction.right :
+                print("User swiped right")
+                
+                // check if index is in range
+                imageIndex = imageIndex - 1
+                
+                if imageIndex < 0 {
+                    imageIndex = imagesArray.count-1
+                }
+            
+                self.productImageView.image = (imagesArray[imageIndex] as! UIImage)
+                
+            case UISwipeGestureRecognizer.Direction.left:
+                print("User swiped Left")
+                
+                // increase index first
+                
+                imageIndex = imageIndex + 1
+                
+                // check if index is in range
+                
+                if imageIndex >= imagesArray.count {
+                    imageIndex = 0
+                }
+                
+                self.productImageView.image = (imagesArray[imageIndex] as! UIImage)
+                
+            default:
+                break //stops the code/codes nothing.
+            }
+            pageControl.currentPage = imageIndex
+            
+        }
+    }
+    
+}
+extension UIImageView {
+    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
+            }
+        }.resume()
+    }
+    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
+        guard let url = URL(string: link) else { return }
+        downloaded(from: url, contentMode: mode)
+    }
+}
+
+
