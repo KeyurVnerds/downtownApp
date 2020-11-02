@@ -23,7 +23,7 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
                   self.collectionView.register(UINib(nibName:"SavedCell", bundle: nil), forCellWithReuseIdentifier: "liked")
           
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "buyCells", for: indexPath) as! SavedCell
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "liked", for: indexPath) as! SavedCell
            print(shopProductData)
            let data = dataClass[indexPath.item]
            imagesArray.append(data.image)
