@@ -71,7 +71,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             }
             else{
                 initializeData()
-                self.performSegue(withIdentifier: "toPopular", sender: self)
+//                self.performSegue(withIdentifier: "toPopular", sender: self)
+                self.performSegue(withIdentifier: "loggedIn", sender: self)
                 self.incorrectL.text = ""
                 
                 
@@ -95,6 +96,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
     }
     override func viewDidLoad() {
+        UIApplication.shared.windows.forEach { window in
+                   window.overrideUserInterfaceStyle = .light
+               }
         textFieldSetUp()
         image.layer.cornerRadius = 20; image.clipsToBounds = true
         password.isSecureTextEntry = true

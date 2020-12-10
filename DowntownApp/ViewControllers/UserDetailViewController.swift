@@ -29,15 +29,15 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         print("clicked")
     }
     func setProperties (bookMarked: String, purchased: String,lat: Double, lng: Double, last_4: String, lastName: String, firstName: String) {
-        if last_4 == "no card" {
-            last4L.text = "Add Card"
-        } else {
-            last4L.text = "4242"
-        }
-        bookmarkCount.text = "14"
+//        if last_4 == "no card" {
+//            last4L.text = "Add Card"
+//        } else {
+//            last4L.text = "4242"
+//        }
+        bookmarkCount.text = "8"
         purchasedCount.text = "4"
-        firstNameL.text = "Aaron"
-        lastNameL.text = "Marsh"
+//        firstNameL.text = firstName
+//        lastNameL.text = lastName
         let coordinate =  CLLocationCoordinate2D(latitude: lat, longitude: lng)
         zoomAndCenter(on: coordinate, zoom: 0.009)
 
@@ -59,8 +59,8 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         }
         let card1 = paymentCard
         let card2 = locationCard
-        cardShadow(view: card1!); cardShadow(view: card2!)
-        paymentCard.backgroundColor = .black
+//        cardShadow(view: card1!); cardShadow(view: card2!)
+        
         
     }
     func layOut () {
@@ -148,6 +148,30 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
 
        }
        
+    
+    @IBOutlet weak var purchasedCard: UIView!
+    
+    func purchasedSetUp () {
+        
+        let card = purchasedCard!
+        
+        card.layer.cornerRadius = 10
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     private func retrieveData(completion: @escaping (_ models: [cellAttributes]) -> Void ) {
         
@@ -253,6 +277,23 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
                     }
  
     }
+    
+    var signoutButton: UIButton {
+        
+        let button = UIButton()
+        
+        button.frame.size = CGSize(width: self.view.frame.width, height: 300)
+        
+        button.backgroundColor = .black
+        
+//        button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: <#T##CGFloat#>)
+        
+        return button
+        
+    }
+    @IBAction func logout(_ sender: Any) {
+        signout()
+    }
     let backGroundColor = #colorLiteral(red: 0.8392, green: 0.8392, blue: 0.8392, alpha: 1)
     @IBOutlet weak var buttonHolder: UIView!
     
@@ -268,14 +309,26 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     }
     @IBOutlet weak var holder1: UIView!
     
+    func signout () {
+            let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+            performSegue(withIdentifier: "logout", sender: self)
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
+          
+    }
  
     var dataHandler: [cellAttributes] = []
     override func viewDidLoad() {
         
     
-
-        last4L.text = "4242"
-         
+        UIApplication.shared.windows.forEach { window in
+                  window.overrideUserInterfaceStyle = .light
+              }
+//        last4L.text = "4242"
+//
 //         bookmarkCount.text = "14"
 //         purchasedCount.text = "4"
 //         firstNameL.text = "Aaron"
@@ -283,6 +336,7 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         viewLoadUp()
         style()
         layOut()
+        purchasedSetUp()
     
         retrieveData{ models in
   self.dataHandler = models

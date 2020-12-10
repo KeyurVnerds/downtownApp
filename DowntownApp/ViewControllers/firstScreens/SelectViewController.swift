@@ -172,9 +172,11 @@ class SelectViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
+        UIApplication.shared.windows.forEach { window in
+                   window.overrideUserInterfaceStyle = .light
+               }
         //        self.view.backgroundColor = .white
-        //        alreadyLoggedIn()
+                alreadyLoggedIn()
         text_animation()
         customPage()
         setWallpaper()
@@ -184,7 +186,7 @@ class SelectViewController: UIViewController {
         //        catch {
         //            return
         //        }
-        alreadyLoggedIn()
+//        alreadyLoggedIn()
         
         bubblesEffect()
         view.addSubview(loginButton)

@@ -26,6 +26,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var catscroll: UIScrollView!
     
     // MARK: Array Init
        private var priceArray = [String]()
@@ -140,6 +141,8 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
            }
       if let res = (item?.data){
         
+        self.loader.isHidden = true
+        
         print(res)
                let data = res as! [[String: Any]]
         var models = [cellAttributes]()
@@ -196,7 +199,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
                              // ...
                            }
                       if let res = (item?.data){
-                        
+                        self.loader.isHidden = true
                         print(res)
                                let data = res as! [[String: Any]]
                         var models = [cellAttributes]()
@@ -214,7 +217,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
 //
                                 let attribute = cellAttributes(name: name, image: image, price: price, id: id)
 //                                models.append(cellAttributes(name: name, image: image, price: price, isBookMarked:false))
-                                                            
+                       
 //
                                 
                                 models.append(attribute)
@@ -274,7 +277,7 @@ print("configggggggggghgggghgghghggggghgggr")
     func scrollSetUp() {
         scroll.isScrollEnabled = true
 
-        scroll.contentSize = CGSize(width: self.view.frame.width, height: self.scroll.frame.height  )
+        scroll.contentSize = CGSize(width: self.view.frame.width + 2500, height: self.scroll.frame.height  )
         shopCollectionView.frame.size = CGSize(width: self.scroll.frame.width, height: self.scroll.frame.height)
         let hasNotch = increaseH()
         if hasNotch == false {
@@ -510,17 +513,56 @@ func itemQuery(){
 
 
  
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     var  nameData: [cellAttributes] = []
+
+    func catSetUp () {
+            var x_point = 0
+        for x in 1...3 {
+            var image: UIImageView {
+           
+                let image = UIImageView()
+                image.layer.cornerRadius = 30
+                image.clipsToBounds = true
+                image.frame.size = CGSize(width: self.view.frame.width - 30 , height: 240)
+                image.contentMode = .scaleToFill
+                image.frame.origin = CGPoint(x: x_point, y: 0)
+                  x_point =  x_point + 200
+                
+                switch x {
+                case 1:
+                    image.image = UIImage(named: "cat-1")
+                    image.backgroundColor = .black
+                case 2:
+                     image.image = UIImage(named: "cat-2")
+                    
+                case 3:
+                    
+                   image.image = UIImage(named: "cat-3")
+                default:
+                    image.backgroundColor = .black
+                }
+                return image
+            }
+            catscroll.addSubview(image)
+            catscroll.contentSize = CGSize(width: (image.frame.width + 20  ) * 3 , height: self.catscroll.frame.height)
+        }
+    }
 
 override func viewDidLoad(){
 
-    
-        categoryImage.image = UIImage(named: "CAT-1")
-    catLabel.text = "Mens Clothing"
-    categoryScrollSU()
+    UIApplication.shared.windows.forEach { window in
+              window.overrideUserInterfaceStyle = .light
+          }
+    self.loader.startAnimating()
+//        categoryImage.image = UIImage(named: "CAT-1")
+//    catLabel.text = "Mens Clothing"
+//    categoryScrollSU()
+    catSetUp()
        super.viewDidLoad()
-    buttonSetUp()
+//    buttonSetUp()
     itemQuery()
+    scrollSetUp()
 //        shopCollectionView.reloadInputViews()
 //        shopCollectionView.setNeedsDisplay()
     
@@ -578,7 +620,7 @@ itemQuery()
 
 scrollSetUp()
     
-    
+  
     
  loadCollection()
     let hasNotch = increaseH()
@@ -588,8 +630,8 @@ scrollSetUp()
         shopCollectionView.contentSize = CGSize(width: self.shopCollectionView.frame.width, height: self.shopCollectionView.frame.height + 400 )
         
     }
-    scroll.contentSize = CGSize(width:view.frame.width, height: self.scroll.frame.height + 1000)
-  
+      scroll.contentSize = CGSize(width:view.frame.width + 1000, height: 1000)
+    
     }
     func loadCollection() {
           fetchRequestsApi { models in

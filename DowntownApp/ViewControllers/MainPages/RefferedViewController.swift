@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseFunctions
 public var shopNameRefrence = ""
 var categoryArray = ["Retro","Retro Tech", "Gaming","PC","Shoes","Foot Wear"]
+var shopArray = [String] ()
 class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
 
@@ -32,12 +33,16 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
             
             print(res)
                    let data = res as! [[String: Any]]
+            
+            self.loader.isHidden = true
             print(data, "#####")
             var models = [shopData]()
                    for result in data {
                    let name = result["shopName"] as! String
                    let image = result["backGroundIm"] as! String
                    let location = result["location"] as! String
+                   let shopName = result["shopName"] as! String
+                    shopArray.append(shopName)
                     let description = ""
               
                     var array = Array<String>()
@@ -117,6 +122,7 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
            
 ////            shopProductData = res as! [String : Any]
             print("res", res)
+            self.loader.isHidden = true
             
          let exist = res as! Int
             
@@ -167,13 +173,34 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
         cell.location.text = myData.location
         
         cell.brandName.text = myData.name
+        
+        cell.layer.shadowColor = UIColor.black.cgColor
+         cell.layer.shadowOpacity = 1
+         cell.layer.shadowOffset = .zero
+         cell.layer.shadowRadius = 10
 //         cell.frame.size = CGSize(width: 375 , height: 680)
         cell.sizeToFit()
   
         cell.layoutIfNeeded()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.launchShop(_:)))
+
+       cell.addGestureRecognizer(tap)
+
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    @objc func launchShop (_ sender: UITapGestureRecognizer) {
+    let location = sender.location(in: self.shopsCo)
+       let indexPath = self.shopsCo.indexPathForItem(at: location)
+            if let index = indexPath {
+                let currentShop = shopArray[index.row]
+
+                shopNameRefrence = currentShop
+                  print(shopNameRefrence)
+                    self.performSegue(withIdentifier: "toShop", sender: self)
+        }
+       
+    }
+     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         shopsCo.contentSize = CGSize(width: self.view.frame.width, height: shopsCo.frame.height + CGFloat((data.count * 680)))
         return data.count
     }
@@ -248,6 +275,7 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
         
         
     }
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var tabBar: UITabBarItem!
     func tabBarSU() {
          UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Kefa", size: 15)!], for: .normal)
@@ -257,6 +285,10 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
      
    
     override func viewDidLoad() {
+        UIApplication.shared.windows.forEach { window in
+                  window.overrideUserInterfaceStyle = .light
+              }
+        loader.startAnimating()
         notFoundLabel.text = nil
         textfield.delegate = self
         print("tf")

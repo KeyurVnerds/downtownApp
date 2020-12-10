@@ -18,7 +18,8 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            dataClass.count
        }
-       var bannerUrl: String = ""
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    var bannerUrl: String = ""
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
                   self.collectionView.register(UINib(nibName:"SavedCell", bundle: nil), forCellWithReuseIdentifier: "liked")
@@ -30,7 +31,11 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
             nameArray.append(data.name)
             priceArray.append(data.price)
             idArray.append(data.id)
-           print(idArray)
+        
+        collectionView.layer.shadowOpacity = 0.7
+        collectionView.layer.shadowOffset = .zero
+        
+         
 //           let data = shopProductData[indexPath.item]
 //             cell.onBookMarkHandler = {
                     
@@ -60,8 +65,8 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
                    
 
                     cell.layoutIfNeeded()
-                        cell.frame.size = CGSize(width: 160 , height: 264)
-                        
+        cell.frame.size = CGSize(width: self.view.frame.width - 50, height: 264)
+        cell.image.contentMode = .scaleAspectFill
                         //or 160 width
                      
                         cell.layer.cornerRadius = 10
@@ -171,6 +176,7 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
                                
                                print(res)
                                 print(res)
+                                self.loader.startAnimating()
                                       let data = res as! [[String: Any]]
                                var models = [cellAttributes]()
                              
@@ -270,6 +276,10 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
        
   
        override func viewDidLoad() {
+        loader.startAnimating()
+        UIApplication.shared.windows.forEach { window in
+                  window.overrideUserInterfaceStyle = .light
+              }
 
    collectionComfig()
            scrollSetUp()

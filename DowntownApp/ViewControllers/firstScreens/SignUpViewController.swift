@@ -173,7 +173,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
                                 }
                                 if let res = (item?.data){
                                     if res as! String == "done" {
-                                        self.performSegue(withIdentifier: "beginSession", sender: self)
+//                                        self.performSegue(withIdentifier: "beginSession", sender: self)
+                                        self.performSegue(withIdentifier: "accountCreated", sender: self)
                                     } else {
                                         
                                     }
@@ -214,6 +215,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     
     override func viewDidLoad() {
+        UIApplication.shared.windows.forEach { window in
+                   window.overrideUserInterfaceStyle = .light
+               }
         setbottomborder(uitextfeild: addressField)
         setbottomborder(uitextfeild: cityField)
         setbottomborder(uitextfeild: zipcodeField)

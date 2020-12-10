@@ -12,6 +12,7 @@ public var globalProductPrice = ""
 public var globalProductName = ""
 public var globalProductId = ""
 public var globalBase = ""
+public var globalDetails = ""
 
 public func setItemProperties(name: String, price: String,id: String, base: String) {
     

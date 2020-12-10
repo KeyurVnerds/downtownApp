@@ -130,16 +130,16 @@ func setCatIm (imageV: UIImageView,title: UILabel, input: String) {
     
     switch input {
     case "CAT-01":
-        imageV.image = UIImage(named: "CAT-1")
+        imageV.image = UIImage(named: "CAT01")
 //           title.textColor = .gray
         title.text = "Mens Clothing"
     case "CAT-02":
 //           title.textColor = .gray
         
-        imageV.image = UIImage(named: "CAT-2")
+        imageV.image = UIImage(named: "CAT02")
         title.text = "Womens Clothing"
     case "CAT-03":
-        imageV.image = UIImage(named: "CAT-3")
+        imageV.image = UIImage(named: "CAT03")
                title.text = "Home Decor"
 //        title.textColor = .gray
   

@@ -16,6 +16,8 @@
 		F148713D25395F1200BA5C6F /* SavedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F148713B25395F1200BA5C6F /* SavedCell.xib */; };
 		F14CAF1B25369682008A1B71 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CAF1925369682008A1B71 /* CollectionViewCell.swift */; };
 		F14CAF1C25369682008A1B71 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F14CAF1A25369682008A1B71 /* CollectionViewCell.xib */; };
+		F16F4419255368DD009FDF9D /* viewProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F4417255368DD009FDF9D /* viewProduct.swift */; };
+		F16F441A255368DD009FDF9D /* viewProduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16F4418255368DD009FDF9D /* viewProduct.xib */; };
 		F1E292A4250D2693007B0238 /* inVentoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292A0250D2693007B0238 /* inVentoryCell.swift */; };
 		F1E292A5250D2693007B0238 /* inVentoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1E292A1250D2693007B0238 /* inVentoryCell.xib */; };
 		F1E292A6250D2693007B0238 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292A2250D2693007B0238 /* TableViewCell.swift */; };
@@ -77,6 +79,8 @@
 		F148713B25395F1200BA5C6F /* SavedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedCell.xib; sourceTree = "<group>"; };
 		F14CAF1925369682008A1B71 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F14CAF1A25369682008A1B71 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		F16F4417255368DD009FDF9D /* viewProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewProduct.swift; sourceTree = "<group>"; };
+		F16F4418255368DD009FDF9D /* viewProduct.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = viewProduct.xib; sourceTree = "<group>"; };
 		F1E292A0250D2693007B0238 /* inVentoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = inVentoryCell.swift; sourceTree = "<group>"; };
 		F1E292A1250D2693007B0238 /* inVentoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = inVentoryCell.xib; sourceTree = "<group>"; };
 		F1E292A2250D2693007B0238 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 			children = (
 				F1E292A0250D2693007B0238 /* inVentoryCell.swift */,
 				F1E292A1250D2693007B0238 /* inVentoryCell.xib */,
+				F16F4417255368DD009FDF9D /* viewProduct.swift */,
+				F16F4418255368DD009FDF9D /* viewProduct.xib */,
 				F14CAF1925369682008A1B71 /* CollectionViewCell.swift */,
 				F14CAF1A25369682008A1B71 /* CollectionViewCell.xib */,
 				F1E292AD250D28A8007B0238 /* discoveryCellCollectionViewCell.swift */,
@@ -406,6 +412,7 @@
 				F1E292A7250D2693007B0238 /* TableViewCell.xib in Resources */,
 				F1F2084C250C94FE00DD8DB7 /* Main.storyboard in Resources */,
 				F1F20894250C9A3700DD8DB7 /* pop1J.textClipping in Resources */,
+				F16F441A255368DD009FDF9D /* viewProduct.xib in Resources */,
 				F1F2089B250C9A3700DD8DB7 /* home.json in Resources */,
 				1AA91F2F254DD991001712E1 /* Assets.xcassets in Resources */,
 				F1F2089A250C9A3700DD8DB7 /* padLock.json in Resources */,
@@ -473,6 +480,7 @@
 				F1F2085D250C99B800DD8DB7 /* discovery.swift in Sources */,
 				F1E292CA250D8287007B0238 /* UserDetailViewController.swift in Sources */,
 				F1F20838250C77FD00DD8DB7 /* AppDelegate.swift in Sources */,
+				F16F4419255368DD009FDF9D /* viewProduct.swift in Sources */,
 				F1F20872250C9A2900DD8DB7 /* MultiVC.swift in Sources */,
 				1AA91F3A254DD9E8001712E1 /* lovedViewController.swift in Sources */,
 				F14CAF1B25369682008A1B71 /* CollectionViewCell.swift in Sources */,
@@ -636,7 +644,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E1B87244D50F6E87C6FF422 /* Pods-DowntownApp.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GF98883W2H;
 				INFOPLIST_FILE = DowntownApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -654,7 +664,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2462F4C926000EDE5E6E0A65 /* Pods-DowntownApp.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GF98883W2H;
 				INFOPLIST_FILE = DowntownApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

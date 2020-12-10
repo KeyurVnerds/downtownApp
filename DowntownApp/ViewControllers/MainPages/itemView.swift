@@ -10,17 +10,34 @@ import Firebase
 import FirebaseFunctions
 import Kingfisher
 import SafariServices
-class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, SFSafariViewControllerDelegate {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
-//
+var imageList = [String]()
+class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,UICollectionViewDataSource, UICollectionViewDelegate, SFSafariViewControllerDelegate {
+    @IBOutlet weak var imageCollection: UICollectionView!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        imageCollection.contentSize = CGSize(width: 2, height: self.imageCollection.frame.height)
+      return  imageList.count
     
-    
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+       let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: "image", for: indexPath) as! viewProduct
+          let url = imageList[indexPath.item]
+        
+        
+      let imgUrl = URL(string: url)
+        cell.image.kf.setImage(with: imgUrl )
+      
+//        cell.image.image = UIImage(named: "CAT02")
+        
+        cell.frame.size = CGSize(width: 355, height: 317)
+        cell.image.contentMode = .scaleAspectFill
+        
+        return cell
+        
+    }
+
+  
     @IBOutlet weak var productImageView: UIImageView!
     
     @IBOutlet weak var pickerView: UIPickerView!
@@ -101,7 +118,7 @@ class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
       func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let  chosenState = pickerData[row]
          
-          print(chosenState)
+         globalDetails = chosenState
       }
 
  
@@ -151,22 +168,22 @@ class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
           }
     
     func imageSetUp () {
-       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(smallImage01(_:)))
-          
-          // add your recognizer to your image
-         smallImage1.addGestureRecognizer(tapGestureRecognizer)
-          
-          // enable user interactions or it won't work!
-        smallImage1.isUserInteractionEnabled = true
-        smallImage1.layer.cornerRadius = 32.5
-        smallImage1.layer.borderColor = UIColor.black.cgColor
-        smallImage1.layer.borderWidth = 1
-        
-        smallImage2.isUserInteractionEnabled = true
-              smallImage2.layer.cornerRadius = 32.5
-              smallImage2.layer.borderColor = UIColor.black.cgColor
-              smallImage2.layer.borderWidth = 1
-         smallImage2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(smallImage02(_:))))
+//       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(smallImage01(_:)))
+//
+//          // add your recognizer to your image
+//         smallImage1.addGestureRecognizer(tapGestureRecognizer)
+//
+//          // enable user interactions or it won't work!
+//        smallImage1.isUserInteractionEnabled = true
+//        smallImage1.layer.cornerRadius = 32.5
+//        smallImage1.layer.borderColor = UIColor.black.cgColor
+//        smallImage1.layer.borderWidth = 1
+//
+//        smallImage2.isUserInteractionEnabled = true
+//              smallImage2.layer.cornerRadius = 32.5
+//              smallImage2.layer.borderColor = UIColor.black.cgColor
+//              smallImage2.layer.borderWidth = 1
+//         smallImage2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(smallImage02(_:))))
         
     }
     
@@ -246,6 +263,11 @@ func small_Pic (numner: Int, scroll: UIScrollView, urlList: Array<String>) {
                 
             }
             if let urls = (result?.data as? [String: Any])?["images"]as? Array<String>{
+                for url in urls {
+                    imageList.append(url)
+                }
+                print("###",imageList)
+                self.imageCollection.reloadData()
                 let description_Text = (result?.data as? [String: Any])?["description"]as? String
                
                 self.descriptionField.text = nil
@@ -280,10 +302,10 @@ func small_Pic (numner: Int, scroll: UIScrollView, urlList: Array<String>) {
                                     else { return }
                                 DispatchQueue.main.async() {
                                     self.imagesArray.append(image)
-                                   
-                                    self.productImageView.image = (self.imagesArray[0] as! UIImage)
-                                    self.smallImage1.image = (self.imagesArray[counter] as! UIImage)
-                                    self.hideViews()
+//                                   
+//                                    self.productImageView.image = (self.imagesArray[0] as! UIImage)
+//                                    self.smallImage1.image = (self.imagesArray[counter] as! UIImage)
+//                                    self.hideViews()
                             }
                             }.resume()
                            
@@ -315,8 +337,9 @@ func small_Pic (numner: Int, scroll: UIScrollView, urlList: Array<String>) {
         var itemNumber = 10
     @IBAction func purchaseClicked(_ sender: Any) {
         
+        print(globalDetails)
 //        pay(productId: globalProductId, base: globalBase, qaunity: itemNumber)
-      let urlString = "https://downtown-be.web.app?qaunity=\(1)&product=\(globalProductId)"
+      let urlString = "https://dtus.us/checkout?qaunity=\(1)&product=\(globalProductId)&uid=\(uid!)&detail=\(globalDetails)"
 print(urlString, "#####")
       if let url = URL(string: urlString) {
         
@@ -367,7 +390,7 @@ print(urlString, "#####")
         brandLabel.textColor = #colorLiteral(red: 0.9569, green: 0.7569, blue: 0.0941, alpha: 1)
         brandLabel.layer.borderWidth = 0.09
         brandLabel.layer.borderColor = UIColor.black.cgColor
-        productImageView.image = UIImage(named: "CAT-1")
+//        productImageView.image = UIImage(named: "CAT01")
 //        holderView.layer.cornerRadius = 15
 //        holderView.layer.shadowOpacity = 0.5
 //        holderView.layer.shadowOffset = .zero
@@ -381,7 +404,17 @@ print(urlString, "#####")
         pv?.layer.cornerRadius = 5
     }
     override func viewDidLoad() {
+        UIApplication.shared.windows.forEach { window in
+                  window.overrideUserInterfaceStyle = .light
+              }
+        imageList.removeAll()
+        let layout = imageCollection.collectionViewLayout as! UICollectionViewFlowLayout
+                   layout.itemSize = CGSize(width: 355, height: 317)
         
+        imageCollection.layer.shadowOffset = .zero
+        imageCollection.layer.shadowOpacity = 0.5
+        imageCollection.layer.cornerRadius = 10
+        imageCollection.clipsToBounds = true
         itemNumber = 1
         style()
         scrollSetUp()
@@ -391,11 +424,12 @@ print(urlString, "#####")
         pickerView.delegate = self
         pickerView.dataSource = self
          pickerViewCustomize()
+        imageCollection.register(UINib(nibName:"viewProduct", bundle: nil), forCellWithReuseIdentifier: "image")
 //        setupCard()
 //        self.small_Pic(numner: self.imagesArray.count, scroll: self.smallImageScroll, urlList: self.image_Urls)
 //        //                self.smallImageScroll.addSubview(image1)
-        smallImageScroll.addSubview(image)
-        
+//        smallImageScroll.addSubview(image)
+//
 
         super.viewDidLoad()
         // Do any additional setup after loading the view.
