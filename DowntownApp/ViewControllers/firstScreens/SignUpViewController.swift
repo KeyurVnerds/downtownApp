@@ -262,7 +262,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIPickerViewD
         
     }
     
-    func setbottomborder(uitextfeild:UITextField){
+func setbottomborder(uitextfeild:UITextField){
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0.0, y: uitextfeild.frame.height - 1, width: uitextfeild.frame.width, height: 2.0)
         bottomLine.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9137254902, blue: 0.9294117647, alpha: 1)

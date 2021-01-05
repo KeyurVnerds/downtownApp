@@ -403,11 +403,13 @@ print(urlString, "#####")
         pv?.layer.borderWidth = 2
         pv?.layer.cornerRadius = 5
     }
+    @IBOutlet weak var purchaseButton: UIButton!
     override func viewDidLoad() {
         UIApplication.shared.windows.forEach { window in
                   window.overrideUserInterfaceStyle = .light
               }
         imageList.removeAll()
+       buttonSetup()
         let layout = imageCollection.collectionViewLayout as! UICollectionViewFlowLayout
                    layout.itemSize = CGSize(width: 355, height: 317)
         
@@ -420,7 +422,7 @@ print(urlString, "#####")
         scrollSetUp()
         imageSetUp()
         setProperties()
-        hideViews()
+//        hideViews()
         pickerView.delegate = self
         pickerView.dataSource = self
          pickerViewCustomize()
@@ -446,7 +448,12 @@ print(urlString, "#####")
 //        self.productImageView.addGestureRecognizer(swipeLeft)
 //
     }
-    
+    @IBOutlet weak var purchase: UIButton!
+    func buttonSetup() {
+        purchase.layer.borderWidth = 3
+        purchase.layer.borderColor = UIColor.black.cgColor
+        
+    }
     @objc func swiped(gesture: UIGestureRecognizer) {
         
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {

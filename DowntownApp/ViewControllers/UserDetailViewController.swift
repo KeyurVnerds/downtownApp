@@ -10,13 +10,18 @@ let selectedTag = UIColor(hue: 0.1278, saturation: 0, brightness: 0.84, alpha: 1
 import UIKit
  import MapKit
 import Firebase
+import Kingfisher
 import FirebaseFunctions
 
  
 
  
-class UserDetailViewController: UIViewController, UITextFieldDelegate {
+class UserDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
+   
+    @IBOutlet weak var tableView: UITableView!
+    
 
+  
     @IBOutlet weak var dataView1: UIView!
     var cellDataArray = [Any]()
     @IBOutlet weak var locationCard: UIView!
@@ -24,6 +29,57 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var purchasedCount: UILabel!
     @IBOutlet weak var bookmarkCount: UILabel!
     @IBOutlet weak var last4L: UILabel!
+    
+    
+    func endLoad() {
+        ai1.isHidden = true
+        ai2.isHidden = true
+        contentScroll.isScrollEnabled = true
+        
+    }
+
+ func retrieveOrders(completion: @escaping (_ models: [order_data]) -> Void ) {
+          let object = ["uid": uid]
+          functions.httpsCallable("clientPurchased").call(object) { (item, error) in
+                                   if let error = error as NSError? {
+                              
+                                     if error.domain == FunctionsErrorDomain {
+                                      _ = FunctionsErrorCode(rawValue: error.code)
+                                      _ = error.localizedDescription
+                                      _ = error.userInfo[FunctionsErrorDetailsKey]
+                                     }
+                                    
+                    
+                                     // ...
+                                   }
+                              if let res = (item?.data){
+                                var models = [order_data]()
+                                
+                       let data = res as! [[String: Any]]
+                              print(res)
+                                    
+                               for order in data {
+                                    let image = order["image"] as! String
+                                let orderId = "working on it"
+//                                    let orderId = order["orderId"] as! String
+                                    let shop = "Downtown"
+                                    let name = order["name"] as! String
+                                    let price = order["price"]
+                                
+                                
+                                let attribute = order_data(image: image, orderId: orderId, shop: shop, name: name, price: price as! String)
+                                
+                                models.append(attribute)
+                                  completion(models)
+                                }
+                                   print("here -- ", models)
+                                      
+                                }
+        
+                              }
+    
+  }
+    
 
     @IBAction func bookMark(_ sender: Any) {
         print("clicked")
@@ -34,7 +90,7 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
 //        } else {
 //            last4L.text = "4242"
 //        }
-        bookmarkCount.text = "8"
+        bookmarkCount.text = "8 "
         purchasedCount.text = "4"
 //        firstNameL.text = firstName
 //        lastNameL.text = lastName
@@ -96,13 +152,7 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     
         
     }
-//    private func openMapForPlace(lat:Double , long:Double , placeName:String = ""){
-//        let userCenter = CLLocationCoordinate2D(latitude: lat, longitude: long)
-//              // Does not have to be userCenter, could replace latitude: and longitude: with any value you would like to center in on
-//
-//              let region = MKCoordinateRegion(center: userCenter, span: MKCoordinateSpan(latitudeDelta: 180, longitudeDelta: 180))
-//
-//              locationDisplay.setRegion(region, animated: true)
+
 //    }
     func zoomAndCenter(on centerCoordinate: CLLocationCoordinate2D, zoom: Double) {
         var span: MKCoordinateSpan = locationDisplay.region.span
@@ -144,10 +194,13 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     self.image = image
     self.price = price
      self.id = id
+    
     }
 
        }
        
+    @IBOutlet weak var ai1: UIActivityIndicatorView!
+    @IBOutlet weak var ai2: UIActivityIndicatorView!
     
     @IBOutlet weak var purchasedCard: UIView!
     
@@ -189,6 +242,8 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
                                      // ...
                                    }
                               if let res = (item?.data){
+                                
+                                self.endLoad()
                      
                         var purchasedData = [Any]()
                         print(res)
@@ -246,33 +301,6 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
 //                                }
                       
                         var models = [cellAttributes]()
-//                                       for result in purchasedData {
-////                                       let name = result["name"] as! String
-////                                       let image = result["images"] as! String
-////                                       let price = result["price"] as! String
-////                                       let id = result["id"] as! String
-//                                        let lng = result["lng"] as! String
-//                                        let lat = result["lat"] as! String
-//                                      let bookMarkCount = result["savedCount"] as! String
-//                                        let purchasedCount = result["purchasedCount"] as! String
-////                                        let last4 = result["last4"] as! String
-//                                        let locationArray = [lat, lng]
-//
-//                                        self.setProperties(bookMarked: bookMarkCount, purchased: purchasedCount, geo: locationArray , last_4: last4)
-//                                        var array = Array<String>()
-//
-//                                        array.append(image)
-//        //
-//        //
-//                                        let attribute = cellAttributes(name: name, image: image, price: price, id: id)
-//        //                                models.append(cellAttributes(name: name, image: image, price: price, isBookMarked:false))
-//
-//        //
-//
-//                                        models.append(attribute)
-//                                        completion(models)
-//
-//                                }
                                 }
                     }
  
@@ -319,10 +347,39 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         }
           
     }
+    func registerCell() {
+        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+    }
+    func collectionSU () {
+        registerCell()
+    }
  
-    var dataHandler: [cellAttributes] = []
-    override func viewDidLoad() {
+    var dataHandler: [order_data] = []
+    var ordersHandler: [order_data] = []
+    
+    func setUp () {
+        retrieveOrders { (models) in
+            self.dataHandler = models
+            self.UIUpdate()
+            self.tableView.reloadData()
+        }
+        self.view.backgroundColor = .white
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
+
+        
+        
+        registerCell()
+      
+ 
+    }
+    func UIUpdate () {
+        purchasedCard.frame.size = CGSize(width: self.purchasedCard.frame.width, height: self.tableView.contentSize.height + 1000)
+    }
+    
+    override func viewDidLoad() {
+         setUp()
     
         UIApplication.shared.windows.forEach { window in
                   window.overrideUserInterfaceStyle = .light
@@ -333,15 +390,20 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
 //         purchasedCount.text = "4"
 //         firstNameL.text = "Aaron"
 //         lastNameL.text = "Marsh"
+       
+        retrieveData{ models in
+                  
+                   }
+        collectionSU()
         viewLoadUp()
         style()
         layOut()
-        purchasedSetUp()
-    
-        retrieveData{ models in
-  self.dataHandler = models
-}
         
+        purchasedSetUp()
+       
+        contentScroll.isScrollEnabled = false
+    
+       
         super.viewDidLoad()
       let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
       tap.numberOfTapsRequired = 2
@@ -352,8 +414,46 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
 
     @objc func doubleTapped() {
         retrieveData{ models in
-                self.dataHandler = models
+             
+              }
+        retrieveOrders { (models) in
+                  self.dataHandler = models
+            self.UIUpdate()
+                  self.tableView.reloadData()
               }
         // do something here
     }
+}
+
+extension UserDetailViewController {
+
+
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else {
+            return UITableViewCell()
+        }
+        let data = dataHandler[indexPath.item]
+
+        cell.productImage.kf.setImage(with: URL(string: data.image))
+        cell.productName.text = data.name
+        cell.companyName.text = data.shop
+        cell.price.text = "$" + data.price
+ 
+//        cell.configureCellData(data: dataHandler[indexPath.item])
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          
+        return dataHandler.count
+          
+          
+      }
+      
+    
 }

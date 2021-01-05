@@ -7,22 +7,23 @@
 
 import UIKit
 import FirebaseFunctions
-class lovedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class lovedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource {
+  
 
        private var priceArray = [String]()
        private var imagesArray = [String]()
        private var nameArray = [String]()
        private var idArray = [String]()
 
-       @IBOutlet weak var collectionView: UICollectionView!
-       func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    @IBOutlet weak var tableView: UITableView!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            dataClass.count
        }
     @IBOutlet weak var loader: UIActivityIndicatorView!
     var bannerUrl: String = ""
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-                  self.collectionView.register(UINib(nibName:"SavedCell", bundle: nil), forCellWithReuseIdentifier: "liked")
+
           
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "liked", for: indexPath) as! SavedCell
            print(shopProductData)
@@ -109,22 +110,22 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
        }
        @objc func tap(_ sender: UITapGestureRecognizer) {
          
-             let location = sender.location(in: self.collectionView)
-             let indexPath = self.collectionView.indexPathForItem(at: location)
-             if let index = indexPath {
-               
-               
-               setItemProperties(name: nameArray[index.row], price: priceArray[index.row], id: idArray[index.row],base: calledItem)
-                print("Got clicked on index: \(index)!")
-       //        print("price", priceArray[indexPath!.row])
-
-               let secondVC = self.storyboard?.instantiateViewController(withIdentifier: "itemView") as! itemView
-               
-                let navigationVC = UINavigationController(rootViewController: secondVC)
-                self.present(navigationVC, animated: true, completion: nil)
-                performSegue(withIdentifier: "viewItem", sender: view)
-       //        performSegue(withIdentifier: "toItemViewer", sender: self)
-             }
+//
+//             let indexPath = self.tableView.indexPathForItem(at: location)
+//             if let index = indexPath {
+//
+//
+//               setItemProperties(name: nameArray[index.row], price: priceArray[index.row], id: idArray[index.row],base: calledItem)
+//                print("Got clicked on index: \(index)!")
+//       //        print("price", priceArray[indexPath!.row])
+//
+//               let secondVC = self.storyboard?.instantiateViewController(withIdentifier: "itemView") as! itemView
+//
+//                let navigationVC = UINavigationController(rootViewController: secondVC)
+//                self.present(navigationVC, animated: true, completion: nil)
+//                performSegue(withIdentifier: "viewItem", sender: view)
+//       //        performSegue(withIdentifier: "toItemViewer", sender: self)
+//             }
           }
  
        public class shopVcStruct {
@@ -176,7 +177,7 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
                                
                                print(res)
                                 print(res)
-                                self.loader.startAnimating()
+//                                self.loader.startAnimating()
                                       let data = res as! [[String: Any]]
                                var models = [cellAttributes]()
                              
@@ -241,62 +242,35 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
            
        }
            
-           func collectionComfig() {
-               let card = collectionView.layer
-                    
-                     
-
-                     card.shadowOffset = CGSize(width: 0, height: 0)
-                     
-                     card.shadowColor = UIColor.black.cgColor
-                     
-                     card.shadowOpacity = 0.3
-                     
-                     card.cornerRadius = 20
-   //            collectionView.layer.borderWidth = 0.3
-
-               let shopCollectionView = collectionView!
-       //            shopCollectionView.isHidden = true
-               collectionView.register(UINib(nibName:"SavedCell", bundle: nil), forCellWithReuseIdentifier: "liked")
-        
-       
-                    shopCollectionView.setContentOffset(shopCollectionView.contentOffset, animated:false) // Stops collection view if it was scrolling.
-               shopCollectionView.reloadItems(at: [])
-              
-       //        let width = (view.frame.size.width - 40) / 3
-       //        let layout = shopCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-       //        layout.itemSize = CGSize(width: width, height: width )
-       ////
-       ////
-       //
-                      }
+    func registerCell() {
+           tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+       }
          
        var dataClass: [cellAttributes] = []
        var bannerLink: String = "https://ucarecdn.com/207e34d1-5154-47f8-bf29-fe026cc6eee1/detroit2361585_1920.jpg"
        
   
        override func viewDidLoad() {
-        loader.startAnimating()
+//        loader.startAnimating()
         UIApplication.shared.windows.forEach { window in
                   window.overrideUserInterfaceStyle = .light
               }
+registerCell()
 
-   collectionComfig()
            scrollSetUp()
          
      
               
-           collectionView.delegate = self
-           collectionView.dataSource = self
+
            print(dataClass)
            
-           collectionView.reloadData()
+        tableView.reloadData()
            
            fetchRequestsApi{ models in
                   
                                   self.dataClass = models
                   
-                                  self.collectionView.reloadData()
+                                  self.tableView.reloadData()
                   
                   
                   
@@ -307,4 +281,37 @@ class lovedViewController: UIViewController, UICollectionViewDelegate, UICollect
 
            // Do any additional setup after loading the view.
        }
+}
+extension lovedViewController {
+   
+
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else {
+                return UITableViewCell()
+            }
+            let data = dataClass[indexPath.item]
+
+            cell.productImage.kf.setImage(with: URL(string: data.image))
+            cell.productName.text = data.name
+            cell.companyName.text = ""
+            cell.price.text = "$" + data.price
+     
+    //        cell.configureCellData(data: dataHandler[indexPath.item])
+            
+            return cell
+        }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 200
+        }
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+              
+            return dataClass.count
+              
+              
+          }
+          
+        
+    
+
 }

@@ -7,7 +7,7 @@
 //
  
 
-var calledItem:String = "CAT-03"
+var calledItem:String = "Mug"
 var shouldRefresh = 0
 import UIKit
 import Firebase
@@ -20,19 +20,30 @@ import FirebaseAuth
 class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
     var resourceCount = 0
     
-    @IBOutlet weak var catLabel: UILabel!
-    @IBOutlet weak var categoryImage: UIImageView!
-    @IBOutlet weak var categroySV: UIScrollView!
-    @IBOutlet weak var button3: UIButton!
-    @IBOutlet weak var button2: UIButton!
-    @IBOutlet weak var button1: UIButton!
-    @IBOutlet weak var catscroll: UIScrollView!
+//    @IBOutlet weak var catLabel: UILabel!
+//    @IBOutlet weak var categroySV: UIScrollView!
+//    @IBOutlet weak var button3: UIButton!
+//    @IBOutlet weak var button2: UIButton!
+//    @IBOutlet weak var button1: UIButton!
     
     // MARK: Array Init
-       private var priceArray = [String]()
+    @IBOutlet weak var searchField: UITextField!
+    private var priceArray = [String]()
        private var imagesArray = [String]()
        private var nameArray = [String]()
        private var idArray = [String]()
+    
+    func setbottomborder(uitextfeild:UITextField){
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: uitextfeild.frame.height - 1, width: uitextfeild.frame.width, height: 2.0)
+        bottomLine.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9137254902, blue: 0.9294117647, alpha: 1)
+        uitextfeild.borderStyle = UITextField.BorderStyle.none
+        uitextfeild.layer.addSublayer(bottomLine)
+    }
+    func setTextfield () {
+        searchField.delegate = self
+       setbottomborder(uitextfeild: searchField)
+    }
     
     func newCat()
     {
@@ -51,8 +62,8 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
     func cases() {
         switch calledItem {
         case "CAT-01":
-            
-            mens(image: categoryImage, sender: button1)
+//
+//            mens(image: categoryImage, sender: button1)
                   loadCollection()
                     newCat()
         case "CAT-02":
@@ -67,7 +78,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
                         // Do any additional setup after loading the view.
                     }
 
-            womens(image: categoryImage, sender: button2)
+//            womens(image: categoryImage, sender: button2)
                     newCat()
             self.shopCollectionView.reloadData()
             
@@ -90,33 +101,34 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
     @IBAction func button1A(_ sender: Any) {
         calledItem = "CAT-01"
         cases()
-        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
+//        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
   
         
     }
     @IBAction func button2A(_ sender: Any) {
         calledItem = "CAT-02"
               cases()
-        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
+//        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
    
     }
     @IBAction func button3A(_ sender: Any) {
         
         calledItem = "CAT-03"
         cases()
-        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
+//        setCatIm(imageV: categoryImage, title: catLabel, input: calledItem)
+        print("called item", calledItem)
     }
     func categoryScrollSU() {
-        
-        categroySV.contentSize = CGSize(width: 700, height: categroySV.frame.height)
-        
-        categroySV.showsHorizontalScrollIndicator = false
+//
+//        categroySV.contentSize = CGSize(width: 2000, height: categroySV.frame.height)
+//
+//        categroySV.showsHorizontalScrollIndicator = false
         
         
     }
     func buttonSetUp() {
-        
-        catButtons(button: button1); catButtons(button: button2);catButtons(button: button3)
+//
+//        catButtons(button: button1); catButtons(button: button2);catButtons(button: button3)
         
     }
     
@@ -127,7 +139,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
     func specificCategory(id: String) {
      func category(completion: @escaping (_ models: [cellAttributes]) -> Void) {
 
-        functions.httpsCallable("showProduct").call("CAT-01") { (item, error) in
+        functions.httpsCallable("showProduct").call(searchField.text) { (item, error) in
                    if let error = error as NSError? {
               
                      if error.domain == FunctionsErrorDomain {
@@ -140,8 +152,6 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
                                      // ...
            }
       if let res = (item?.data){
-        
-        self.loader.isHidden = true
         
         print(res)
                let data = res as! [[String: Any]]
@@ -186,7 +196,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
         //MARK: Fetch
       
     func fetchRequestsApi(completion: @escaping (_ models: [cellAttributes]) -> Void ) {
-                functions.httpsCallable("showProduct").call("CAT-01") { (item, error) in
+                functions.httpsCallable("showProduct").call(calledItem) { (item, error) in
                            if let error = error as NSError? {
                       
                              if error.domain == FunctionsErrorDomain {
@@ -199,7 +209,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
                              // ...
                            }
                       if let res = (item?.data){
-                        self.loader.isHidden = true
+                        
                         print(res)
                                let data = res as! [[String: Any]]
                         var models = [cellAttributes]()
@@ -217,7 +227,7 @@ class QueryShopViewController: UIViewController, UITextFieldDelegate, UICollecti
 //
                                 let attribute = cellAttributes(name: name, image: image, price: price, id: id)
 //                                models.append(cellAttributes(name: name, image: image, price: price, isBookMarked:false))
-                       
+                                                            
 //
                                 
                                 models.append(attribute)
@@ -277,7 +287,7 @@ print("configggggggggghgggghgghghggggghgggr")
     func scrollSetUp() {
         scroll.isScrollEnabled = true
 
-        scroll.contentSize = CGSize(width: self.view.frame.width + 2500, height: self.scroll.frame.height  )
+        scroll.contentSize = CGSize(width: self.view.frame.width, height: self.scroll.frame.height  )
         shopCollectionView.frame.size = CGSize(width: self.scroll.frame.width, height: self.scroll.frame.height)
         let hasNotch = increaseH()
         if hasNotch == false {
@@ -409,44 +419,20 @@ var backgroundGesture: UIView{
 
 
     
+
+
+
+
+
+
+
+
+
+    @IBOutlet weak var shopCollectionView: UICollectionView!
     
-    
-
-
-func returnOnTap() {
-  
-    
-    self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(returnKeyboard(_:))))
-    
-    
-    
-}
-
-
-
-
-
-
-@objc func returnKeyboard(_ sender: UITapGestureRecognizer) {
-
-
-
-func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-self.shopCollectionView.isHidden = false
-print(2744)
-     return true;
- }
-
-}
-
-
-
-
-
 
  
 
-@IBOutlet weak var shopCollectionView: UICollectionView!
 
 
 
@@ -455,7 +441,7 @@ print(2744)
 
 
 
-@IBOutlet var categoryTitle: UILabel!
+
 //MARK: Tap
 @objc func tap(_ sender: UITapGestureRecognizer) {
   
@@ -513,56 +499,19 @@ func itemQuery(){
 
 
  
-    @IBOutlet weak var loader: UIActivityIndicatorView!
     var  nameData: [cellAttributes] = []
+//
+//    @IBOutlet weak var categoryImage: UIImageView!
+    override func viewDidLoad(){
 
-    func catSetUp () {
-            var x_point = 0
-        for x in 1...3 {
-            var image: UIImageView {
-           
-                let image = UIImageView()
-                image.layer.cornerRadius = 30
-                image.clipsToBounds = true
-                image.frame.size = CGSize(width: self.view.frame.width - 30 , height: 240)
-                image.contentMode = .scaleToFill
-                image.frame.origin = CGPoint(x: x_point, y: 0)
-                  x_point =  x_point + 200
-                
-                switch x {
-                case 1:
-                    image.image = UIImage(named: "cat-1")
-                    image.backgroundColor = .black
-                case 2:
-                     image.image = UIImage(named: "cat-2")
-                    
-                case 3:
-                    
-                   image.image = UIImage(named: "cat-3")
-                default:
-                    image.backgroundColor = .black
-                }
-                return image
-            }
-            catscroll.addSubview(image)
-            catscroll.contentSize = CGSize(width: (image.frame.width + 20  ) * 3 , height: self.catscroll.frame.height)
-        }
-    }
-
-override func viewDidLoad(){
-
-    UIApplication.shared.windows.forEach { window in
-              window.overrideUserInterfaceStyle = .light
-          }
-    self.loader.startAnimating()
+    
 //        categoryImage.image = UIImage(named: "CAT-1")
 //    catLabel.text = "Mens Clothing"
-//    categoryScrollSU()
-    catSetUp()
+    categoryScrollSU()
+    setTextfield()
        super.viewDidLoad()
-//    buttonSetUp()
+    buttonSetUp()
     itemQuery()
-    scrollSetUp()
 //        shopCollectionView.reloadInputViews()
 //        shopCollectionView.setNeedsDisplay()
     
@@ -608,7 +557,7 @@ override func viewDidLoad(){
  
   
    
-    returnOnTap()
+    
     
  
             
@@ -620,7 +569,7 @@ itemQuery()
 
 scrollSetUp()
     
-  
+//        categoryImage.image = UIImage(named: "CAT01")
     
  loadCollection()
     let hasNotch = increaseH()
@@ -630,8 +579,8 @@ scrollSetUp()
         shopCollectionView.contentSize = CGSize(width: self.shopCollectionView.frame.width, height: self.shopCollectionView.frame.height + 400 )
         
     }
-      scroll.contentSize = CGSize(width:view.frame.width + 1000, height: 1000)
-    
+    scroll.contentSize = CGSize(width:view.frame.width, height: self.scroll.frame.height + 1000)
+  
     }
     func loadCollection() {
           fetchRequestsApi { models in
@@ -679,20 +628,6 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 
 
-func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-self.shopCollectionView.isHidden = true
-    return true;
-}
-func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-self.shopCollectionView.isHidden = false
-print(2744)
-     return true;
- }
-func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-   textField.resignFirstResponder()
-    itemQuery()
-   return true
-}
 @IBAction func signOut(_ sender: Any) {
     
     
@@ -715,11 +650,53 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate meth
 }
 
 
-extension UIImage
+extension QueryShopViewController
 {
-var highestQualityJPEGNSData: NSData { return self.jpegData(compressionQuality: 1.0)! as NSData }
-var highQualityJPEGNSData: NSData    { return self.jpegData(compressionQuality: 0.75)! as NSData}
-var mediumQualityJPEGNSData: NSData  { return self.jpegData(compressionQuality: 0.5)! as NSData }
-var lowQualityJPEGNSData: NSData     { return self.jpegData(compressionQuality: 0.25)! as NSData}
-var lowestQualityJPEGNSData: NSData  { return self.jpegData(compressionQuality: 0.0)! as NSData }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+          let bottomLine = CALayer()
+          bottomLine.frame = CGRect(x: 0.0, y: textField.frame.height - 1, width: textField.frame.width, height: 2.0)
+          UIView.animate(withDuration: 0.5) {
+              bottomLine.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9137254902, blue: 0.9294117647, alpha: 1)
+          }
+          textField.borderStyle = UITextField.BorderStyle.none
+          textField.layer.addSublayer(bottomLine)
+          
+          //checkFieldsFunc()
+          print(2)
+          return true;
+      }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+           print(1)
+           print("active")
+           let bottomLine = CALayer()
+           bottomLine.frame = CGRect(x: 0.0, y: textField.frame.height - 1, width: textField.frame.width, height: 2.0)
+           textField.alpha = 0.2
+           UIView.animate(withDuration: 0.5) {
+               textField.alpha = 1
+               bottomLine.backgroundColor = UIColor.black.cgColor
+               
+           }
+           
+           textField.borderStyle = UITextField.BorderStyle.none
+           textField.layer.addSublayer(bottomLine)
+           return true;
+       }
+      func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        calledItem = searchField.text!
+           fetchRequestsApi{ models in
+        
+                        self.nameData = models
+        
+                        self.shopCollectionView.reloadData()
+        
+        
+        
+                    // Do any additional setup after loading the view.
+                }
+        textField.resignFirstResponder()
+        print("return")
+
+        return true
+    }
 }

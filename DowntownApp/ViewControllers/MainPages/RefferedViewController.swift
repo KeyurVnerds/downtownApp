@@ -162,8 +162,8 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
         
 //        cell.layer.borderWidth = 0.3
         
-        cell.about.text = myData.description
-        
+//        cell.about.text = myData.description
+//
         cell.brandLogo.contentMode = .scaleAspectFit
         
         cell.brandLogo.contentMode = .scaleAspectFill
@@ -178,6 +178,12 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
          cell.layer.shadowOpacity = 1
          cell.layer.shadowOffset = .zero
          cell.layer.shadowRadius = 10
+        cell.layer.borderWidth = 0.08
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.8
+        cell.layer.shadowOffset = .zero
+        cell.layer.cornerRadius = 30
+        cell.layer.borderColor = UIColor.black.cgColor
 //         cell.frame.size = CGSize(width: 375 , height: 680)
         cell.sizeToFit()
   
@@ -227,10 +233,11 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
     @IBOutlet weak var header: UILabel!
     private func customizeHeader () {
         
-        let headerTitle = "Discover NEW Shops.".withBoldText(text: "NEW")
-        header.attributedText =  headerTitle
+        header.text = "Discover"
+//        let headerTitle = "Discover NEW Shops.".withBoldText(text: "NEW")
+//        header.attributedText =  headerTitle
         
-//        header.font = UIFont(name: "Bodoni 72 Oldstyle", size: 40)
+        header.font = UIFont(name: "Times", size: 40)
 //
     }
     
@@ -247,13 +254,20 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
              }
         self.shopsCo.register(UINib(nibName:"discoveryCellCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "shops")
    
-        shopsCo.contentSize = CGSize(width: self.view.frame.width + 300, height: 4700)
+        shopsCo.contentSize = CGSize(width: self.view.frame.width, height: 4700)
 
              let layout = shopsCo.collectionViewLayout as! UICollectionViewFlowLayout
-             layout.itemSize = CGSize(width: 375, height: 680)
-        
+             layout.itemSize = CGSize(width: 347, height: 153)
+//         layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 100, right: 0)
 //        shopsCo.frame.size = CGSize(width: self.view.frame.width, height: 2000)
         
+    }
+    func setbottomborder(uitextfeild:UITextField){
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: uitextfeild.frame.height - 1, width: uitextfeild.frame.width, height: 2.0)
+        bottomLine.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9137254902, blue: 0.9294117647, alpha: 1)
+        uitextfeild.borderStyle = UITextField.BorderStyle.none
+        uitextfeild.layer.addSublayer(bottomLine)
     }
     
     
@@ -263,12 +277,12 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
     func setUp() {
         topBar.layer.shadowOpacity = 0.5
         topBar.clipsToBounds = true
-        textfield.layer.borderColor = UIColor.black.cgColor; textfield.layer.borderWidth = 2
         textfield.layer.cornerRadius = 10; textfield.clipsToBounds = true
-        textfield.layer.shadowOffset = .zero
-        textfield.layer.shadowOpacity = 0.1
+    
         textfield.placeholder = "Search Shop Name"
         textfield.textAlignment = .center
+        setbottomborder(uitextfeild: textfield)
+        
         
 
         
@@ -311,9 +325,32 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
         
         textfield.delegate = self
     }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print(1)
+        print("active")
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: textField.frame.height - 1, width: textField.frame.width, height: 2.0)
+        textField.alpha = 0.2
+        UIView.animate(withDuration: 0.5) {
+            textField.alpha = 1
+            bottomLine.backgroundColor = UIColor.black.cgColor
+            
+        }
+        
+        textField.borderStyle = UITextField.BorderStyle.none
+        textField.layer.addSublayer(bottomLine)
+        return true;
+    }
     
      func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    
+    let bottomLine = CALayer()
+          bottomLine.frame = CGRect(x: 0.0, y: textField.frame.height - 1, width: textField.frame.width, height: 2.0)
+          UIView.animate(withDuration: 0.5) {
+              bottomLine.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.9137254902, blue: 0.9294117647, alpha: 1)
+          }
+          textField.borderStyle = UITextField.BorderStyle.none
+          textField.layer.addSublayer(bottomLine)
+          
 
                return true;
            }

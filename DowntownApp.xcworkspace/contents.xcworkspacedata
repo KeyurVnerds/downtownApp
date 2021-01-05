@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:createShopView.xib">
+   </FileRef>
+   <FileRef
       location = "group:DowntownApp.xcodeproj">
    </FileRef>
    <FileRef

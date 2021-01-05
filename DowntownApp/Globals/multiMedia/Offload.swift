@@ -73,3 +73,20 @@ func resetP(){
 
 
 
+public struct order_data {
+     var image: String
+     var orderId: String
+     var shop: String
+     var name: String
+    var price: String
+     
+    init(image: String, orderId: String, shop: String, name: String, price: String) {
+         self.image = image
+         self.orderId = orderId
+         self.shop = shop
+         self.name = name
+         self.price = price
+        
+        }
+ }
+ 
