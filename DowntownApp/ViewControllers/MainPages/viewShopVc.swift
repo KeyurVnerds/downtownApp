@@ -167,61 +167,63 @@ class viewShopVc: UIViewController, UICollectionViewDelegate, UICollectionViewDa
 
     @IBOutlet var image2: UIImageView!
     private var shopProductData: [shopVcStruct] = []
-     func fetchRequestsApi(completion: @escaping (_ models: [cellAttributes]) -> Void ) {
-    
+    func fetchRequestsApi(completion: @escaping (_ models: [cellAttributes]) -> Void ) {
+        
         
         let shopName = shopNameRefrence
-         let searchObj = ["shopName": shopName, "case": "data"]
-                    functions.httpsCallable("searchShop").call(searchObj) { (item, error) in
-                               if let error = error as NSError? {
-                          
-                                 if error.domain == FunctionsErrorDomain {
-                                  _ = FunctionsErrorCode(rawValue: error.code)
-                                  _ = error.localizedDescription
-                                  _ = error.userInfo[FunctionsErrorDetailsKey]
-                                 }
-                                
+        let searchObj = ["shopName": shopName, "case": "data"]
+        functions.httpsCallable("searchShop").call(searchObj) { (item, error) in
+            
+            
+            if let error = error as NSError? {
                 
-                                 // ...
-                               }
-                          if let res = (item?.data){
-                            
-                            print(res)
-                                   let data = res as! [String: Any]
-                            var models = [cellAttributes]()
-                              let rawData = [Any]()
-                            let background = data["logo"] as! String
-                             let orderCount = data["orders"] as! String
-                            
-                            print(orderCount)
-                            self.orderCountL.text = orderCount
-                             self.shopBanner.kf.setImage(with: URL(string: background))
-//                                   for result in rawData {
-//
-//                                   let image = result["image"] as! String
-//                                   let price = result["price"] as! String
-//                                   let id = result["id"] as! String
-//
-//
-//                                    self.shopNameLabel.text = "Fire Hoodies"
-//
-//                                    var array = Array<String>()
-//
-//                                    array.append(image)
-//    //
-//
-//
-//                               let attribute = cellAttributes(name: "Shop", image: image, price: price, isBookMarked:false, id: id)
-//
-//    //
-//
-//                                    models.append(attribute)
-//                                    completion(models)
-//
-//                            }
-                            }
+                if error.domain == FunctionsErrorDomain {
+                    _ = FunctionsErrorCode(rawValue: error.code)
+                    _ = error.localizedDescription
+                    _ = error.userInfo[FunctionsErrorDetailsKey]
                 }
+                
+                
+                // ...
             }
+            if let res = (item?.data){
+                
+                print(res)
+                let data = res as! [String: Any]
+                var models = [cellAttributes]()
+                let rawData = [Any]()
+                let background = data["logo"] as! String
+                let orderCount = data["orders"] as! String
+                
+                print(orderCount)
+                self.orderCountL.text = orderCount
+                self.shopBanner.kf.setImage(with: URL(string: background))
+                //                                   for result in rawData {
+                //
+                //                                   let image = result["image"] as! String
+                //                                   let price = result["price"] as! String
+                //                                   let id = result["id"] as! String
+                //
+                //
+                //                                    self.shopNameLabel.text = "Fire Hoodies"
+                //
+                //                                    var array = Array<String>()
+                //
+                //                                    array.append(image)
+                //    //
+                //
+                //
+                //                               let attribute = cellAttributes(name: "Shop", image: image, price: price, isBookMarked:false, id: id)
+                //
+                //    //
+                //
+                //                                    models.append(attribute)
+                //                                    completion(models)
+                //
+                //                            }
+            }
+        }
+    }
 
     
        class cellAttributes {

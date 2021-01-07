@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCollectionViewCell" id="gTV-IL-0wX" customClass="ProductCollectionViewCell" customModule="Downtown" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdl-bd-kbD">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginIm" translatesAutoresizingMaskIntoConstraints="NO" id="KTm-9W-hOK">
+                                <rect key="frame" x="10" y="10" width="130" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KTm-9W-hOK" secondAttribute="height" multiplier="1:1" id="Nxu-ZE-9q3"/>
+                                    <constraint firstAttribute="height" constant="130" id="uEq-d5-21g"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KTm-9W-hOK" secondAttribute="trailing" constant="10" id="8Zx-3q-gcu"/>
+                            <constraint firstAttribute="bottom" secondItem="KTm-9W-hOK" secondAttribute="bottom" constant="10" id="HIb-BL-fYo"/>
+                            <constraint firstItem="KTm-9W-hOK" firstAttribute="top" secondItem="qdl-bd-kbD" secondAttribute="top" constant="10" id="mU1-HB-ktu"/>
+                            <constraint firstItem="KTm-9W-hOK" firstAttribute="leading" secondItem="qdl-bd-kbD" secondAttribute="leading" constant="10" id="w3B-hk-E3F"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="qdl-bd-kbD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b09-kO-m5M"/>
+                <constraint firstAttribute="trailing" secondItem="qdl-bd-kbD" secondAttribute="trailing" id="tUX-oD-ZYI"/>
+                <constraint firstAttribute="bottom" secondItem="qdl-bd-kbD" secondAttribute="bottom" id="wOJ-8H-xwR"/>
+                <constraint firstItem="qdl-bd-kbD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xLL-PO-uUz"/>
+            </constraints>
+            <size key="customSize" width="287" height="163"/>
+            <connections>
+                <outlet property="imgView" destination="KTm-9W-hOK" id="lV4-S1-nUQ"/>
+            </connections>
+            <point key="canvasLocation" x="267.39130434782612" y="110.82589285714285"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="loginIm" width="555" height="418"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

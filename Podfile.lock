@@ -72,6 +72,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.4.0)
+  - IQKeyboardManagerSwift (6.5.6)
   - Kingfisher (5.15.0):
     - Kingfisher/Core (= 5.15.0)
   - Kingfisher/Core (5.15.0)
@@ -83,6 +84,8 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.10)
+  - TextFieldEffects (1.6.0)
+  - UIViewUseful (0.1.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -90,8 +93,11 @@ DEPENDENCIES:
   - Firebase/Auth
   - FirebaseDatabase
   - FirebaseFunctions
+  - IQKeyboardManagerSwift
   - Kingfisher
   - lottie-ios
+  - TextFieldEffects
+  - UIViewUseful
 
 SPEC REPOS:
   trunk:
@@ -108,11 +114,14 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - Kingfisher
     - leveldb-library
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - TextFieldEffects
+    - UIViewUseful
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
@@ -128,12 +137,15 @@ SPEC CHECKSUMS:
   GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Kingfisher: 1acb67597a520c2d0310677e66d6e0af455ef757
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
+  UIViewUseful: 3407c352bf22b65980c8e3cf9ceb4c282a2c0701
 
-PODFILE CHECKSUM: 68dd7e3f400f59cb6ae4644ac9b47ce8402a2962
+PODFILE CHECKSUM: 02a8177038be5fe9058c93a684d79892d0f4118c
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

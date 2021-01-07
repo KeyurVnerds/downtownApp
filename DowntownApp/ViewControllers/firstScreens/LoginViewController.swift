@@ -25,6 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         email.clipsToBounds = true
         password.clipsToBounds = true
     }
+    
     func checkFields(){
         
         if email.text != "" && password.text != "" {
@@ -137,8 +138,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         textFieldSetUp()
         image.layer.cornerRadius = 20; image.clipsToBounds = true
         password.isSecureTextEntry = true
+        self.email.text = "aaronmarsh755@gmail.com"
+        self.password.text = "Buddy2004"
         checkFields()
         super.viewDidLoad()
+        
 resetBS()
         
         email.delegate = self

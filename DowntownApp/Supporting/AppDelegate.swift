@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.windows.forEach { window in
             window.overrideUserInterfaceStyle = .light
         }
+        IQKeyboardManager.shared.enable = true
         // Override point for customization after application launch.
         return true
     }

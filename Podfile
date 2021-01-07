@@ -21,5 +21,11 @@ pod 'FirebaseFunctions'
 
 pod 'Alamofire'
 
+pod 'IQKeyboardManagerSwift'
+
+pod 'TextFieldEffects'
+
+pod 'UIViewUseful'
+
 
 end
