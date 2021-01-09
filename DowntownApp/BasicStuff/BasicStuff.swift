@@ -22,3 +22,38 @@ extension UITextField {
         rightViewMode = .always
     }
 }
+
+final class ContentSizedTableView: UITableView {
+    override var contentSize:CGSize {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+}
+
+
+extension UIView {
+    
+    func addShadow() {
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOpacity = 0.6
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
+        clipsToBounds = false
+    }
+    
+    func addLightShadow() {
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 8
+        layer.masksToBounds = false
+        clipsToBounds = false
+    }
+}
