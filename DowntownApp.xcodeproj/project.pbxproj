@@ -26,6 +26,9 @@
 		F1520ADD2584890000D0489F /* ordersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1520ADB2584890000D0489F /* ordersCell.xib */; };
 		F16F4419255368DD009FDF9D /* viewProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16F4417255368DD009FDF9D /* viewProduct.swift */; };
 		F16F441A255368DD009FDF9D /* viewProduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16F4418255368DD009FDF9D /* viewProduct.xib */; };
+		F1BBA61925A968750096CA29 /* OrderHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BBA61825A968750096CA29 /* OrderHistoryVC.swift */; };
+		F1BBA61E25A969490096CA29 /* OrderHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BBA61C25A969490096CA29 /* OrderHistoryCell.swift */; };
+		F1BBA61F25A969490096CA29 /* OrderHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1BBA61D25A969490096CA29 /* OrderHistoryCell.xib */; };
 		F1E292A4250D2693007B0238 /* inVentoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292A0250D2693007B0238 /* inVentoryCell.swift */; };
 		F1E292A5250D2693007B0238 /* inVentoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1E292A1250D2693007B0238 /* inVentoryCell.xib */; };
 		F1E292A6250D2693007B0238 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292A2250D2693007B0238 /* TableViewCell.swift */; };
@@ -97,6 +100,9 @@
 		F1520ADB2584890000D0489F /* ordersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ordersCell.xib; sourceTree = "<group>"; };
 		F16F4417255368DD009FDF9D /* viewProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewProduct.swift; sourceTree = "<group>"; };
 		F16F4418255368DD009FDF9D /* viewProduct.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = viewProduct.xib; sourceTree = "<group>"; };
+		F1BBA61825A968750096CA29 /* OrderHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryVC.swift; sourceTree = "<group>"; };
+		F1BBA61C25A969490096CA29 /* OrderHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryCell.swift; sourceTree = "<group>"; };
+		F1BBA61D25A969490096CA29 /* OrderHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderHistoryCell.xib; sourceTree = "<group>"; };
 		F1E292A0250D2693007B0238 /* inVentoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = inVentoryCell.swift; sourceTree = "<group>"; };
 		F1E292A1250D2693007B0238 /* inVentoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = inVentoryCell.xib; sourceTree = "<group>"; };
 		F1E292A2250D2693007B0238 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 		F13056AE25A5E3260039B6D2 /* AddProduct */ = {
 			isa = PBXGroup;
 			children = (
+				F1BBA61725A968530096CA29 /* OrderHistory */,
 				F13056B325A5E6DC0039B6D2 /* CollectiionViewCell */,
 				F13056AF25A5E33F0039B6D2 /* AddProductVC.swift */,
 			);
@@ -272,6 +279,16 @@
 				F13056BB25A5EE2E0039B6D2 /* BasicStuff.swift */,
 			);
 			path = BasicStuff;
+			sourceTree = "<group>";
+		};
+		F1BBA61725A968530096CA29 /* OrderHistory */ = {
+			isa = PBXGroup;
+			children = (
+				F1BBA61825A968750096CA29 /* OrderHistoryVC.swift */,
+				F1BBA61C25A969490096CA29 /* OrderHistoryCell.swift */,
+				F1BBA61D25A969490096CA29 /* OrderHistoryCell.xib */,
+			);
+			path = OrderHistory;
 			sourceTree = "<group>";
 		};
 		F1E2929F250D2693007B0238 /* cellSXibAndSwift */ = {
@@ -452,6 +469,7 @@
 				F1E292A5250D2693007B0238 /* inVentoryCell.xib in Resources */,
 				F1F20844250C780000DD8DB7 /* LaunchScreen.storyboard in Resources */,
 				F1F20896250C9A3700DD8DB7 /* Infinite.json in Resources */,
+				F1BBA61F25A969490096CA29 /* OrderHistoryCell.xib in Resources */,
 				F1F05BC5251BBACC00172077 /* bubbles.json in Resources */,
 				F1F05BC3251BBA1D00172077 /* bubbless.json in Resources */,
 				F1F20895250C9A3700DD8DB7 /* stuff.json in Resources */,
@@ -553,6 +571,7 @@
 				F1F2085A250C99B800DD8DB7 /* RefferedViewController.swift in Sources */,
 				F1F20873250C9A2900DD8DB7 /* LoginExViewController.swift in Sources */,
 				F1E292A4250D2693007B0238 /* inVentoryCell.swift in Sources */,
+				F1BBA61E25A969490096CA29 /* OrderHistoryCell.swift in Sources */,
 				F1F2085B250C99B800DD8DB7 /* viewShopVc.swift in Sources */,
 				F13056B025A5E33F0039B6D2 /* AddProductVC.swift in Sources */,
 				F1E292B5250D7E16007B0238 /* segues.swift in Sources */,
@@ -570,6 +589,7 @@
 				F1F2083A250C77FD00DD8DB7 /* SceneDelegate.swift in Sources */,
 				F1E292CB250D8287007B0238 /* NodeViewController.swift in Sources */,
 				1AA91F36254DD9DE001712E1 /* itemView.swift in Sources */,
+				F1BBA61925A968750096CA29 /* OrderHistoryVC.swift in Sources */,
 				F1F20875250C9A2900DD8DB7 /* itemLog.swift in Sources */,
 				F1F2086C250C99CC00DD8DB7 /* Explanation.swift in Sources */,
 				F1F20869250C99CC00DD8DB7 /* SelectViewController.swift in Sources */,

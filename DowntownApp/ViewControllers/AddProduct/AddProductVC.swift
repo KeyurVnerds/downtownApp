@@ -8,6 +8,9 @@
 
 import UIKit
 import TextFieldEffects
+import Firebase
+import FirebaseDatabase
+import FirebaseFunctions
 
 class AddProductVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UITextViewDelegate {
         
@@ -33,7 +36,7 @@ class AddProductVC: UIViewController, UICollectionViewDelegate, UICollectionView
         self.tfProductTitle.delegate = self
         self.productPrice.keyboardType = .asciiCapableNumberPad
         self.txtDesc.textColor = UIColor.lightGray
-        self.txtDesc.delegate = self
+        self.txtDesc.delegate = self        
     }
     
     @IBAction func btnAddProductAction(_ sender: UIControl) {
@@ -95,6 +98,7 @@ class AddProductVC: UIViewController, UICollectionViewDelegate, UICollectionView
         present(imagePicker, animated: true, completion: nil)
     }
 
+    
 
     
     /*

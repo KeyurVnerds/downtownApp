@@ -107,49 +107,50 @@ class home: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UIC
         print("called")
         let searchObj = ["shopName": textfield.text!, "case": "check"]
         functions.httpsCallable("searchShop").call(searchObj) { (item, error) in
-             if let error = error as NSError? {
-        
-               if error.domain == FunctionsErrorDomain {
-                _ = FunctionsErrorCode(rawValue: error.code)
-                _ = error.localizedDescription
-                _ = error.userInfo[FunctionsErrorDetailsKey]
-               }
-              
-
-               // ...
-             }
-        if let res = (item?.data){
-           
-////            shopProductData = res as! [String : Any]
-            print("res", res)
-            self.loader.isHidden = true
-            
-         let exist = res as! Int
-            
-            if exist == 0 {
-                self.textfield.layer.borderColor = UIColor.red.cgColor
-                self.notFoundLabel.text = "Shop Couldn't Be Located."
-            } else {
-                self.textfield.layer.borderColor = UIColor.black.cgColor
-                self.notFoundLabel.text = ""
-                self.performSegue(withIdentifier: "toShop", sender: self)
-            }
-            print(type(of: res))
-//    
-//            let data = res as! [String: Any]
-//            
-//            let response = data["response"] as! String
-//            
-//            if response == "true" {
-     
+            if let error = error as NSError? {
                 
-//            }else {
-//
-//            }
-            
-                            
+                if error.domain == FunctionsErrorDomain {
+                    _ = FunctionsErrorCode(rawValue: error.code)
+                    _ = error.localizedDescription
+                    _ = error.userInfo[FunctionsErrorDetailsKey]
+                }
+                
+                
+                // ...
+            }
+            if let res = (item?.data){
+                
+                ////            shopProductData = res as! [String : Any]
+                print("res", res)
+                self.loader.isHidden = true
+                
+                let exist = res as! Int
+                
+                if exist == 0 {
+                    self.textfield.layer.borderColor = UIColor.red.cgColor
+                    self.notFoundLabel.text = "Shop Couldn't Be Located."
+                } else {
+                    self.textfield.layer.borderColor = UIColor.black.cgColor
+                    self.notFoundLabel.text = ""
+                    self.performSegue(withIdentifier: "toShop", sender: self)
+                }
+                print(type(of: res))
+                //
+                //            let data = res as! [String: Any]
+                //
+                //            let response = data["response"] as! String
+                //
+                //            if response == "true" {
+                
+                
+                //            }else {
+                //
+                //            }
+                
+                
+            }
+        }
     }
-        }}
     
     
     
