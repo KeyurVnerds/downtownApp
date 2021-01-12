@@ -10,13 +10,14 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseFunctions
+import Lottie
 
 
 class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var lblOrder: UILabel!
     
+    @IBOutlet weak var lottieContainer: UIView!
     @IBOutlet weak var view3: UIControl!
-    @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var orderTableView: UITableView!{
         didSet {
@@ -24,21 +25,61 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    @objc func restartAnimation(bubblesView: AnimationView) {
+           bubblesView.play()
+    }
     @IBOutlet weak var lblProfit: UILabel!
     
     var order:NSArray = []
 
+   private func addAnimation() {
+
+
+    }
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        print("applicationWillEnterForeground")
+    }
     
+    var bubblesView:AnimationView = AnimationView()
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+//         let bubblesView: AnimationView
+      
+        bubblesView = .init(name: "blobs")
+     bubblesView.frame.size = view1.frame.size
+     bubblesView.contentMode = .scaleAspectFill
+        
+        // 4. Set animation loop mode
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.NSExtensionHostDidEnterBackground, object: nil)
+        bubblesView.loopMode = .loop
+        
+        // 5. Adjust animation speed
+        
+        bubblesView.animationSpeed = 0.7
+     
+     bubblesView.play()
+        
+        lottieContainer.addSubview(bubblesView)
+  
+        
+        
+      
+        
         // Do any additional setup after loading the view.
         self.orderTableView.delegate = self
         self.orderTableView.dataSource = self
         self.getProductDetails()
-        self.view1.addShadow()
-        self.view2.addShadow()
+//
+//        self.view2.addShadow()
         self.view3.addShadow()
 
+    }
+    
+    @objc func appMovedToForeground() {
+        print("App moved to ForeGround!")
     }
     
     @IBAction func onTapNewOrder(_ sender: UIControl) {
@@ -56,6 +97,8 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         if let orderDetails = order[indexPath.row] as? NSDictionary {
             cell.lblNameValue.text = orderDetails["name"] as? String
             cell.lblQuntyValue.text = orderDetails["quanity"] as? String
+            cell.addShadow()
+            
         }
         return cell
     }
@@ -106,5 +149,9 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func viewDidAppear(_ animated: Bool) {
+        bubblesView.play()
+    }
 
 }

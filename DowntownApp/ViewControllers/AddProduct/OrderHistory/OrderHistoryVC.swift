@@ -48,6 +48,7 @@ class OrderHistoryVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let orderDetails = order[indexPath.row] as? NSDictionary {
             cell.lblNameValue.text = orderDetails["name"] as? String
             cell.lblQuntyValue.text = orderDetails["quanity"] as? String
+       
         }
         return cell
     }
