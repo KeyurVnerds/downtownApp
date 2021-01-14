@@ -69,6 +69,15 @@ func resetP(){
     
 }
 
+func getStripeId(_ completion:@escaping((String)->())) {
+    ref.child(uid!).child("securePayment/stripeId").observeSingleEvent(of: .value) { (stripeDetails) in
+        if let stripeId = (stripeDetails.value as? NSDictionary)?["stripeId"] as? String {
+            completion(stripeId)
+        }
+    }
+
+}
+
 
 
 

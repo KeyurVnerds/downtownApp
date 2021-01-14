@@ -8,6 +8,35 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import Stripe
+import FirebaseDatabase
+
+
+let publicKey = "pk_test_LNY5fjEFqFhUORrCHueKrW26"
+let seckretKey = "sk_test_hgHDQOYRrTlk581vcW1cvNmT"
+let stripeBaseUrl = "https://api.stripe.com"
+//let stripeUserId = Database.database().reference().child(uid!).child("StripeSecure/id") //ref.child(uid!).child("StripeSecure/id").observeSingleEvent(of: .value)
+
+
+struct JSN {
+    static var isNetworkConnected:Bool = false
+    static func log(_ logMessage: String,_ args:Any... , functionName: String = #function ,file:String = #file,line:Int = #line) {
+        
+        let newArgs = args.map({arg -> CVarArg in String(describing: arg)})
+        let messageFormat = String(format: logMessage, arguments: newArgs)
+        
+        print("LOG :- \(((file as NSString).lastPathComponent as NSString).deletingPathExtension)--> \(functionName) ,Line:\(line) :", messageFormat)
+    }
+    static func error(_ logMessage: String,_ args:Any... , functionName: String = #function ,file:String = #file,line:Int = #line) {
+        
+        let newArgs = args.map({arg -> CVarArg in String(describing: arg)})
+        let messageFormat = String(format: logMessage, arguments: newArgs)
+        
+        print("ERROR :- \(((file as NSString).lastPathComponent as NSString).deletingPathExtension)--> \(functionName) ,Line:\(line) :", messageFormat)
+    }
+}
+
 
 
 extension UITextField {
@@ -57,3 +86,61 @@ extension UIView {
         clipsToBounds = false
     }
 }
+
+extension UIViewController {
+    func showAlert(title : String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+}
+
+extension Encodable {
+  var dictionary: [String: Any]? {
+    guard let data = try? JSONEncoder().encode(self) else { return nil }
+    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+  }
+}
+
+
+class MyAPIClient: NSObject, STPCustomerEphemeralKeyProvider {
+
+    func createCustomerKey(withAPIVersion apiVersion: String = "19.1.0", completion: @escaping STPJSONResponseCompletionBlock) {
+
+        let urlStr = stripeBaseUrl.appending("ephemeral_keys")
+        var param = [String:String]()
+        getStripeId { (stripeId) in
+            param["customer"] = stripeId
+        }
+        
+       // param["customer"] = //reference(uid!).reference("StripeSecure/id") //User.getStripeId() //UserModel.shared.objUser?.user?.stripe_id ?? ""
+        let header = ["Authorization":"Bearer " + seckretKey, "Stripe-Version":"2020-08-27"]
+
+        Alamofire.request(urlStr,method: .post, parameters: param,headers: header)
+            .validate(contentType: ["application/x-www-form-urlencoded"])
+            .responseJSON { (response) in
+                if response.data != nil {
+
+                    guard let data = response.data else {
+                        return
+                    }
+                    JSN.log("ephemeral key response ===>%@", String(bytes: data, encoding: .utf8))
+
+                    do {
+                        StripeModel.shared.stripeObj = try JSONDecoder().decode(SkripeKeyData.self, from: data)
+                        let disctionaryValue = StripeModel.shared.stripeObj?.dictionary
+                        completion(disctionaryValue,nil)
+
+                    } catch let error {
+                        JSN.log("error ====>%@", error.localizedDescription)
+                    }
+                }else {
+                    JSN.log("secret key error ===>%@", response.error.debugDescription)
+                }
+            }
+
+    }
+}
+

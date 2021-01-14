@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.2.2)
+  - Alamofire (4.9.1)
   - Firebase (6.32.0):
     - Firebase/Core (= 6.32.0)
   - Firebase/Auth (6.32.0):
@@ -84,11 +84,12 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.10)
+  - Stripe (19.1.1)
   - TextFieldEffects (1.6.0)
   - UIViewUseful (0.1.1)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.9.1)
   - Firebase
   - Firebase/Auth
   - FirebaseDatabase
@@ -96,6 +97,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - Kingfisher
   - lottie-ios
+  - Stripe (~> 19.1.0)
   - TextFieldEffects
   - UIViewUseful
 
@@ -120,11 +122,12 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - Stripe
     - TextFieldEffects
     - UIViewUseful
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Firebase: afa030f17f5421810f379a42b0e5d3302d27eb26
   FirebaseAnalytics: a4d98464f455f5056063932123fa441025322f30
   FirebaseAuth: f7b269b33c1e842a35400ddc9bbc8b03cdc47ba3
@@ -143,9 +146,10 @@ SPEC CHECKSUMS:
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  Stripe: e4599b6570d82548c62b8d6b7b200241856a2be7
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   UIViewUseful: 3407c352bf22b65980c8e3cf9ceb4c282a2c0701
 
-PODFILE CHECKSUM: 02a8177038be5fe9058c93a684d79892d0f4118c
+PODFILE CHECKSUM: af0b66e27ffb4abd3f8d66980a87c3d7833fcbf8
 
 COCOAPODS: 1.10.0

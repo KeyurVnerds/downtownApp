@@ -19,13 +19,16 @@ pod 'FirebaseDatabase'
 
 pod 'FirebaseFunctions'
 
-pod 'Alamofire'
+pod 'Alamofire', '~> 4.9.1'
 
 pod 'IQKeyboardManagerSwift'
 
 pod 'TextFieldEffects'
 
 pod 'UIViewUseful'
+
+pod 'Stripe', "~> 19.1.0"
+
 
 
 end

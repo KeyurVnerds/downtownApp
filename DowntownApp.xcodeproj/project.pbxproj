@@ -42,6 +42,7 @@
 		F1E292CB250D8287007B0238 /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292C5250D8286007B0238 /* NodeViewController.swift */; };
 		F1E292CD250D8287007B0238 /* clientDataSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292C7250D8287007B0238 /* clientDataSheet.swift */; };
 		F1E292CE250D8287007B0238 /* purchaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292C8250D8287007B0238 /* purchaseScreen.swift */; };
+		F1E7275A25B0142F00D2510A /* StripeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E7275925B0142F00D2510A /* StripeModel.swift */; };
 		F1F05BC3251BBA1D00172077 /* bubbless.json in Resources */ = {isa = PBXBuildFile; fileRef = F1F05BC2251BBA1D00172077 /* bubbless.json */; };
 		F1F05BC5251BBACC00172077 /* bubbles.json in Resources */ = {isa = PBXBuildFile; fileRef = F1F05BC4251BBACB00172077 /* bubbles.json */; };
 		F1F20838250C77FD00DD8DB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F20837250C77FD00DD8DB7 /* AppDelegate.swift */; };
@@ -118,6 +119,7 @@
 		F1E292C5250D8286007B0238 /* NodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
 		F1E292C7250D8287007B0238 /* clientDataSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clientDataSheet.swift; sourceTree = "<group>"; };
 		F1E292C8250D8287007B0238 /* purchaseScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = purchaseScreen.swift; sourceTree = "<group>"; };
+		F1E7275925B0142F00D2510A /* StripeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeModel.swift; sourceTree = "<group>"; };
 		F1F05BC2251BBA1D00172077 /* bubbless.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bubbless.json; sourceTree = "<group>"; };
 		F1F05BC4251BBACB00172077 /* bubbles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bubbles.json; sourceTree = "<group>"; };
 		F1F20834250C77FD00DD8DB7 /* Downtown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Downtown.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +327,14 @@
 			path = cellSXibAndSwift;
 			sourceTree = "<group>";
 		};
+		F1E7275825B0142200D2510A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F1E7275925B0142F00D2510A /* StripeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F1F2082B250C77FD00DD8DB7 = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F20845250C780000DD8DB7 /* Info.plist */,
+				F1E7275825B0142200D2510A /* Model */,
 				F13056BA25A5EE210039B6D2 /* BasicStuff */,
 				1AA930F3254E8BA80057FDF0 /* Supporting */,
 				F1F20876250C9A3600DD8DB7 /* Json Files */,
@@ -591,6 +602,7 @@
 				F1F2085B250C99B800DD8DB7 /* viewShopVc.swift in Sources */,
 				F13056B025A5E33F0039B6D2 /* AddProductVC.swift in Sources */,
 				F1E292B5250D7E16007B0238 /* segues.swift in Sources */,
+				F1E7275A25B0142F00D2510A /* StripeModel.swift in Sources */,
 				F1F2085D250C99B800DD8DB7 /* discovery.swift in Sources */,
 				F1E292CA250D8287007B0238 /* UserDetailViewController.swift in Sources */,
 				F1F20838250C77FD00DD8DB7 /* AppDelegate.swift in Sources */,
