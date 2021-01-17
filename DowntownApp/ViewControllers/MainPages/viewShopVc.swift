@@ -171,7 +171,7 @@ class viewShopVc: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         
         
         let shopName = shopNameRefrence
-        let searchObj = ["shopName": shopName, "case": "data"]
+        let searchObj = ["shopName": shopName, "case": "view"]
         functions.httpsCallable("searchShop").call(searchObj) { (item, error) in
             
             

@@ -33,8 +33,6 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var lblProfit: UILabel!
     
     var order:NSArray = []
-    var paymentContext = STPPaymentContext()
-    let customerContext = STPCustomerContext(keyProvider: MyAPIClient())
 
    private func addAnimation() {
 
@@ -79,11 +77,6 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
 //
 //        self.view2.addShadow()
         self.view3.addShadow()
-        self.paymentContext = STPPaymentContext(customerContext: customerContext)
-        self.paymentContext.delegate = self
-        self.paymentContext.hostViewController = self
-        self.paymentContext.paymentAmount = 5000
-        self.paymentContext.paymentCurrency = "USD"
 
     }
     
@@ -92,17 +85,6 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     @IBAction func onTapNewOrder(_ sender: UIControl) {
-        guard !STPPaymentConfiguration.shared().publishableKey.isEmpty else {
-            JSN.error("Please assign a value to `publishableKey` in StripeConstants.swift and make sure it is used to setup Stripe in AppDelegate.")
-            return
-        }
-               
-               
-       if paymentContext.hostViewController == nil {
-           paymentContext.hostViewController = self
-       }
-               // Present the Stripe payment methods view controller to enter payment details
-        self.paymentContext.presentPaymentOptionsViewController()
 //            self.paymentContext.requestPayment()
 //        let addProductVc = self.storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
 //         self.present(addProductVc, animated: true, completion: nil)
@@ -177,99 +159,3 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
 
 }
 
-//MARK:- Payment context delegate
-extension ShopMangeVC: STPPaymentContextDelegate {
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
-        JSN.log("didFailToLoadWithError error ====>%@", error)
-    }
-    
-    
-    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        
-        JSN.log("paymentContext.selectedPaymentOption?.label ====>%@", paymentContext.selectedPaymentOption?.label)
-        JSN.log("paymentContext.selectedPaymentOption?.image ====>%@", paymentContext.selectedPaymentOption?.image)
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
-       
-        JSN.log("payment response ====>%@", paymentResult.paymentMethodParams?.card)
-        
-        var param = [String:Any]()
-        param["amount"] = 5000
-        param["currency"] = "USD"
-        getStripeId { (stripeId) in
-            param["customer"] = stripeId
-        }
-        
-        let header = ["Authorization":"Bearer " + seckretKey]
-
-        Alamofire.request("https://api.stripe.com/v1/payment_intents",method: .post, parameters: param,headers: header)
-            .validate(contentType: ["application/x-www-form-urlencoded"])
-            .responseJSON { (response) in
-                if let data = response.data {
-                    let json = ((try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]) as [String : Any]??)
-                    print(response.result.value)
-                    JSN.log("Secret key ====>%@", json??["client_secret"] as? String)
-                    if let sKey = json??["client_secret"] as? String {
-                        
-                        let paymentIntentParams = STPPaymentIntentParams(clientSecret: sKey)
-                        paymentIntentParams.paymentMethodId = paymentResult.paymentMethod?.stripeId
-                        
-                
-                        // Confirm the PaymentIntent
-                        STPPaymentHandler.shared().confirmPayment(withParams: paymentIntentParams, authenticationContext: paymentContext) { status, paymentIntent, error in
-                            switch status {
-                            case .succeeded:
-                                // Your backend asynchronously fulfills the customer's order, e.g. via webhook
-                                self.showAlert(title: "Success", message: "your stripe id \(paymentIntent?.stripeId)")
-                                completion(.success, nil)
-                            case .failed:
-                                completion(.error, error) // Report error
-                            case .canceled:
-                                completion(.userCancellation, nil) // Customer cancelled
-                            @unknown default:
-                                completion(.error, nil)
-                            }
-                        }
-
-                    }
-                }else {
-                    self.showAlert(title: "Alert", message: "Something went wrog")
-                }
-                
-            }
-        
-        
-        
-        
-        
-        
-//        let paymentIntentParams = STPPaymentIntentParams(clientSecret: StripeModel.shared.stripeObj?.stripe_key?.secret ?? "")
-//        paymentIntentParams.paymentMethodId = paymentResult.paymentMethod?.stripeId
-//
-//        // Confirm the PaymentIntent
-//        STPPaymentHandler.shared().confirmPayment(withParams: paymentIntentParams, authenticationContext: paymentContext) { status, paymentIntent, error in
-//            switch status {
-//            case .succeeded:
-//                // Your backend asynchronously fulfills the customer's order, e.g. via webhook
-//                completion(.success, nil)
-//            case .failed:
-//                completion(.error, error) // Report error
-//            case .canceled:
-//                completion(.userCancellation, nil) // Customer cancelled
-//            @unknown default:
-//                completion(.error, nil)
-//            }
-//        }
-        
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        JSN.error("payment cotext delegate error ====>%@", error)
-    }
-    
-    
-    
-    
-}

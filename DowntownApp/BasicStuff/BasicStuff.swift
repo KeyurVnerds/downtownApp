@@ -109,16 +109,17 @@ class MyAPIClient: NSObject, STPCustomerEphemeralKeyProvider {
 
     func createCustomerKey(withAPIVersion apiVersion: String = "19.1.0", completion: @escaping STPJSONResponseCompletionBlock) {
 
-        let urlStr = stripeBaseUrl.appending("ephemeral_keys")
+        var urlStr = "https://downtown-proxy.herokuapp.com/create_charge?uid="//stripeBaseUrl.appending("ephemeral_keys")
         var param = [String:String]()
         getStripeId { (stripeId) in
-            param["customer"] = stripeId
+            urlStr = urlStr + stripeId
+//            param["customer"] = stripeId
         }
         
        // param["customer"] = //reference(uid!).reference("StripeSecure/id") //User.getStripeId() //UserModel.shared.objUser?.user?.stripe_id ?? ""
-        let header = ["Authorization":"Bearer " + seckretKey, "Stripe-Version":"2020-08-27"]
+//        let header = ["Authorization":"Bearer " + seckretKey, "Stripe-Version":"2020-08-27"]
 
-        Alamofire.request(urlStr,method: .post, parameters: param,headers: header)
+        Alamofire.request(urlStr,method: .get, parameters: param,headers: nil)
             .validate(contentType: ["application/x-www-form-urlencoded"])
             .responseJSON { (response) in
                 if response.data != nil {
