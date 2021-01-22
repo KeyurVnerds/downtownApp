@@ -13,7 +13,7 @@ import SafariServices
 import Stripe
 import Alamofire
 
-
+var quanity: Int = 0
 var imageList = [String]()
 class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,UICollectionViewDataSource, UICollectionViewDelegate, SFSafariViewControllerDelegate {
     @IBOutlet weak var imageCollection: UICollectionView!
@@ -40,7 +40,7 @@ class itemView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,U
         return cell
         
     }
-
+  public  let lineItems: [String: Any] = [:]
   
     @IBOutlet weak var productImageView: UIImageView!
     
@@ -320,6 +320,7 @@ func small_Pic (numner: Int, scroll: UIScrollView, urlList: Array<String>) {
                             }.resume()
                            
                   counter += 1
+                        quanity = counter
                 }
             }
      
@@ -414,6 +415,12 @@ print(urlString, "#####")
         pv?.layer.cornerRadius = 5
     }
     @IBOutlet weak var purchaseButton: UIButton!
+    @objc func showMiracle() {
+           let slideVC = OverlayView()
+           slideVC.modalPresentationStyle = .custom
+           slideVC.transitioningDelegate = self
+           self.present(slideVC, animated: true, completion: nil)
+       }
     override func viewDidLoad() {
         UIApplication.shared.windows.forEach { window in
                   window.overrideUserInterfaceStyle = .light
@@ -478,13 +485,15 @@ print(urlString, "#####")
             JSN.error("Please assign a value to `publishableKey` in StripeConstants.swift and make sure it is used to setup Stripe in AppDelegate.")
             return
         }
-               
-               
+
+
        if paymentContext.hostViewController == nil {
            paymentContext.hostViewController = self
        }
                // Present the Stripe payment methods view controller to enter payment details
         self.paymentContext.requestPayment() //presentPaymentOptionsViewController()
+        
+//        showMiracle()
 
         
     }
@@ -566,13 +575,13 @@ extension itemView: STPPaymentContextDelegate {
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         
-        JSN.log("paymentContext.selectedPaymentOption?.label ====>%@", paymentContext.selectedPaymentOption?.label)
-        JSN.log("paymentContext.selectedPaymentOption?.image ====>%@", paymentContext.selectedPaymentOption?.image)
+        JSN.log("paymentContext.selectedPaymentOption?.label ====>%@", paymentContext.selectedPaymentOption?.label as Any)
+        JSN.log("paymentContext.selectedPaymentOption?.image ====>%@", paymentContext.selectedPaymentOption?.image as Any)
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
         
-        JSN.log("payment response ====>%@", paymentResult.paymentMethodParams?.card)
+        JSN.log("payment response ====>%@", paymentResult.paymentMethodParams?.card as Any)
         
         var param = [String:Any]()
         param["amount"] = 5000
@@ -581,17 +590,19 @@ extension itemView: STPPaymentContextDelegate {
             param["customer"] = stripeId
             
             let header = ["Authorization":"Bearer " + seckretKey]
-            
-            Alamofire.request("https://api.stripe.com/v1/payment_intents",method: .post, parameters: param,headers: header)
+            let params = ["productId": globalProductId, "uid": uid!, "qaunity": 1,"detail":globalDetails] as [String : Any]
+            Alamofire.request("https://downtown-proxy.herokuapp.com/postorder",method: .post, parameters: params,headers: header)
                 .validate(contentType: ["application/x-www-form-urlencoded"])
                 .responseJSON { (response) in
                     if let data = response.data {
                         let json = ((try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]) as [String : Any]??)
                         print(response.result.value)
-                        JSN.log("Secret key ====>%@", json??["client_secret"] as? String)
+                        JSN.log("Secret key ====>%@", json??["client_secret"] as? String as Any)
+                        print(json)
                         if let sKey = json??["client_secret"] as? String {
                             
                             let paymentIntentParams = STPPaymentIntentParams(clientSecret: sKey)
+                            STPAPIClient.shared().stripeAccount = ""
                             paymentIntentParams.paymentMethodId = paymentResult.paymentMethod?.stripeId
                             
                             
@@ -620,7 +631,7 @@ extension itemView: STPPaymentContextDelegate {
         }
     }
     
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+    func paymentContext(_ paymentContext : STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         JSN.error("payment cotext delegate error ====>%@", error)
     }
     
@@ -630,3 +641,14 @@ extension itemView: STPPaymentContextDelegate {
 }
 
 
+extension itemView: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+extension itemView {
+    public func alert(title: String, message: String){
+        self.showAlert(title: title, message: message)
+    }
+ 
+}
