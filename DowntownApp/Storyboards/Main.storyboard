@@ -1010,7 +1010,6 @@
                         <segue destination="XeL-gZ-XsF" kind="relationship" relationship="viewControllers" id="H2R-aU-i5f"/>
                         <segue destination="U6S-vx-7Wj" kind="relationship" relationship="viewControllers" id="hEg-Yy-geQ"/>
                         <segue destination="pm2-vo-gv7" kind="relationship" relationship="viewControllers" id="oMU-eI-FQ5"/>
-                        <segue destination="gBg-yH-dRb" kind="relationship" relationship="viewControllers" id="fAK-yP-2el"/>
                         <segue destination="lst-AP-I5t" kind="relationship" relationship="viewControllers" id="lMg-gb-Ij7"/>
                     </connections>
                 </tabBarController>
@@ -2638,7 +2637,7 @@
             <objects>
                 <viewController title="profile" id="azn-vA-pBd" customClass="SignUpViewController" customModule="Downtown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TYI-nl-n20">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-messages-app-iPadAir-67x50" translatesAutoresizingMaskIntoConstraints="NO" id="mej-Xo-8ga">
@@ -2646,7 +2645,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMD-xa-ktZ">
-                                <rect key="frame" x="0.0" y="140" width="375" height="972"/>
+                                <rect key="frame" x="0.0" y="184" width="375" height="982"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waq-r1-enn">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
@@ -2672,7 +2671,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zip Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="irE-87-qg9">
-                                                <rect key="frame" x="30" y="342.66666666666669" width="315" height="25"/>
+                                                <rect key="frame" x="30" y="342.66666666666663" width="315" height="25"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -2793,9 +2792,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="mJi-UF-jva"/>
         <segue reference="0ay-Lt-o4E"/>
-        <segue reference="r0Z-Kz-03u"/>
+        <segue reference="VN0-eV-HQf"/>
         <segue reference="hEg-Yy-geQ"/>
-        <segue reference="oO2-fh-xHU"/>
         <segue reference="H2R-aU-i5f"/>
     </inferredMetricsTieBreakers>
     <resources>
