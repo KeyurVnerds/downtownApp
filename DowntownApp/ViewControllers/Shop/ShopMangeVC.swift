@@ -31,6 +31,8 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
            bubblesView.play()
     }
     @IBOutlet weak var lblProfit: UILabel!
+    @IBOutlet weak var shopLabel: UILabel!
+    @IBOutlet weak var scroll: UIScrollView!
     
     var order:NSArray = []
 
@@ -42,10 +44,23 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         print("applicationWillEnterForeground")
     }
     
+    func addReconizer () {
+  
+          let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(addUserInfo(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(addUserInfo(_:)))
+            
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        
+        self.scroll.addGestureRecognizer(leftSwipe)
+         self.scroll.addGestureRecognizer(rightSwipe)
+    }
+    
     var bubblesView:AnimationView = AnimationView()
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         
 //         let bubblesView: AnimationView
       
@@ -68,7 +83,7 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
   
         
         
-      
+      addReconizer()
         
         // Do any additional setup after loading the view.
         self.orderTableView.delegate = self
@@ -157,5 +172,66 @@ class ShopMangeVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         bubblesView.play()
     }
 
+}
+extension ShopMangeVC {
+    @objc func addUserInfo(_ sender: UISwipeGestureRecognizer) {
+    let controller:UserDetailViewController = self.storyboard!.instantiateViewController(withIdentifier:"UserDetailViewController") as!
+                     UserDetailViewController
+//
+//
+//    if (gesture.direction == .right) {
+//        print("--->")
+//                 UIView.animate(withDuration: 0.5) {
+//
+//
+//                    controller.view.frame = self.view.bounds;
+//                    self.scroll.addSubview(controller.view)
+//                    self.addChild(controller)
+//                    controller.didMove(toParent: self)
+//
+//               }
+//
+//    } else if gesture.direction == .left {
+//          print("<---")
+//        controller.view.removeFromSuperview()
+//
+//    }
+//
+//    print("swiped")
+   
+//    UIView.animate(withDuration: 0.5) {
+//        self.view.alpha = 0
+//    }
+        
+        
+        
+        if sender.direction == .left
+           {
+              print("Swipe left")
+              // show the view from the right side
+            controller.willMove(toParent: nil)
+            controller.view.backgroundColor = .black
+            controller.view.removeFromSuperview()
+            controller.removeFromParent()
+           }
+
+           if sender.direction == .right
+           {
+              print("Swipe right")
+                  UIView.animate(withDuration: 0.5) {
+            
+            
+                                controller.view.frame = self.view.bounds;
+                                self.scroll.addSubview(controller.view)
+                                self.addChild(controller)
+                                controller.didMove(toParent: self)
+            
+                           }
+            
+              // show the view from the left side
+           }
+ 
+ 
+    }
 }
 

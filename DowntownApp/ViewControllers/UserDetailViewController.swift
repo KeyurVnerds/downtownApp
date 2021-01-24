@@ -378,37 +378,47 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         purchasedCard.frame.size = CGSize(width: self.purchasedCard.frame.width, height: self.tableView.contentSize.height + 1000)
     }
     
+    func load() {
+               setUp()
+            
+                UIApplication.shared.windows.forEach { window in
+                          window.overrideUserInterfaceStyle = .light
+                      }
+        //        last4L.text = "4242"
+        //
+        //         bookmarkCount.text = "14"
+        //         purchasedCount.text = "4"
+        //         firstNameL.text = "Aaron"
+        //         lastNameL.text = "Marsh"
+               
+                retrieveData{ models in
+                          
+                           }
+                collectionSU()
+                viewLoadUp()
+                style()
+                layOut()
+                
+                purchasedSetUp()
+               
+                contentScroll.isScrollEnabled = false
+            
+               
+                super.viewDidLoad()
+              let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+              tap.numberOfTapsRequired = 2
+              view.addGestureRecognizer(tap)
+            
+    }
+    
+    
     override func viewDidLoad() {
-         setUp()
     
-        UIApplication.shared.windows.forEach { window in
-                  window.overrideUserInterfaceStyle = .light
-              }
-//        last4L.text = "4242"
-//
-//         bookmarkCount.text = "14"
-//         purchasedCount.text = "4"
-//         firstNameL.text = "Aaron"
-//         lastNameL.text = "Marsh"
-       
-        retrieveData{ models in
-                  
-                   }
-        collectionSU()
-        viewLoadUp()
-        style()
-        layOut()
-        
-        purchasedSetUp()
-       
-        contentScroll.isScrollEnabled = false
+    load()
     
-       
-        super.viewDidLoad()
-      let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-      tap.numberOfTapsRequired = 2
-      view.addGestureRecognizer(tap)
-    
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        load()
     }
     
 

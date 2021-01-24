@@ -13,7 +13,7 @@ import Stripe
 import FirebaseDatabase
 
 
-let publicKey = "pk_test_LNY5fjEFqFhUORrCHueKrW26"
+let publicKey = "pk_test_51EC8ySL8Gx6rf2qzgh8aZ9SeEKhbwKM5yNzkRd05Hak5rjgn5JlUlRwnNuRBDEuAuRHTFGlhgCxQWIW1zPMH77ys004It6mfDQ "
 let seckretKey = "sk_test_hgHDQOYRrTlk581vcW1cvNmT"
 let stripeBaseUrl = "https://api.stripe.com"
    var paymentContext = STPCustomerContext(keyProvider: MyAPIClient())

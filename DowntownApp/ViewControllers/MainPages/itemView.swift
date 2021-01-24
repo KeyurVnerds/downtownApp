@@ -493,7 +493,7 @@ print(urlString, "#####")
                // Present the Stripe payment methods view controller to enter payment details
         self.paymentContext.requestPayment() //presentPaymentOptionsViewController()
         
-//        showMiracle()
+        showMiracle()
 
         
     }

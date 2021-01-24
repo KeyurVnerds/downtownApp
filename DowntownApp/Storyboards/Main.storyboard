@@ -256,7 +256,7 @@
         <!--Profile-->
         <scene sceneID="Q7f-fu-lfK">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="gBg-yH-dRb" customClass="UserDetailViewController" customModule="Downtown" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserDetailViewController" modalPresentationStyle="fullScreen" id="gBg-yH-dRb" customClass="UserDetailViewController" customModule="Downtown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTt-sL-CGQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1236"/>
                         <subviews>
@@ -906,11 +906,11 @@
             <objects>
                 <viewController id="HkC-D3-9vu" customClass="ResetPasswordViewController" customModule="Downtown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CZY-Hh-5Qf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2jt-ap-xVn">
-                                <rect key="frame" x="30" y="284.33333333333331" width="315" height="57"/>
+                                <rect key="frame" x="30" y="240.33333333333337" width="315" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="57" id="hJ2-D7-GNo"/>
                                 </constraints>
@@ -918,7 +918,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Reset" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpH-Js-dpx">
-                                <rect key="frame" x="113.66666666666669" y="133" width="148" height="65"/>
+                                <rect key="frame" x="113.66666666666669" y="89" width="148" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="ZZN-Hf-Rdv"/>
                                 </constraints>
@@ -927,7 +927,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter your email to reset your password. Check your email to continue reseting." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Pe4-9b-WH1">
-                                <rect key="frame" x="67" y="198" width="241" height="66.333333333333314"/>
+                                <rect key="frame" x="67" y="154" width="241" height="66.333333333333314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66.329999999999998" id="3EM-Je-CkA"/>
@@ -937,7 +937,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7d-F8-y82">
-                                <rect key="frame" x="40" y="709" width="295" height="53"/>
+                                <rect key="frame" x="40" y="655" width="295" height="53"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="Lgd-TH-DFX"/>
@@ -951,7 +951,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Z-es-wWk">
-                                <rect key="frame" x="30" y="381.33333333333331" width="315" height="0.0"/>
+                                <rect key="frame" x="30" y="337.33333333333331" width="315" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1228,6 +1228,8 @@
                         <outlet property="lblProfit" destination="Fm1-hE-x2f" id="eCD-Lr-uZn"/>
                         <outlet property="lottieContainer" destination="cAr-Vy-V6i" id="fbN-56-sc1"/>
                         <outlet property="orderTableView" destination="oFt-wi-Nfx" id="gDL-RC-5x5"/>
+                        <outlet property="scroll" destination="dyR-Kd-wwO" id="Ceu-wF-AEx"/>
+                        <outlet property="shopLabel" destination="BcG-AZ-Iti" id="9f9-cG-HXm"/>
                         <outlet property="view1" destination="8c4-eH-QT2" id="q73-b8-oQn"/>
                         <outlet property="view3" destination="DZB-S0-riJ" id="YkU-rX-ABF"/>
                     </connections>
@@ -1876,11 +1878,11 @@
             <objects>
                 <viewController id="ENI-jV-Mwv" customClass="LoginViewController" customModule="Downtown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zyX-VC-sqS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhs-tb-wTb">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9g-mL-6f2">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
