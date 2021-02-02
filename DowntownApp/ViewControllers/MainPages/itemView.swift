@@ -499,7 +499,7 @@ print(urlString, "#####")
     }
     
     @IBAction func btnPaymentOptionAction(_ sender: UIButton) {
-        self.paymentContext.presentPaymentOptionsViewController()
+        self.paymentContext.pushPaymentOptionsViewController()
     }
     
     @objc func swiped(gesture: UIGestureRecognizer) {
@@ -597,39 +597,14 @@ extension itemView: STPPaymentContextDelegate {
                     if let data = response.data {
                         let json = ((try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]) as [String : Any]??)
                         print(response.result.value)
-                        JSN.log("Secret key ====>%@", json??["client_secret"] as? String as Any)
-                        print(json)
-                        if let sKey = json??["client_secret"] as? String {
-                            
-                            let paymentIntentParams = STPPaymentIntentParams(clientSecret: sKey)
-                            STPAPIClient.shared().stripeAccount = ""
-                            paymentIntentParams.paymentMethodId = paymentResult.paymentMethod?.stripeId
-                            
-                            
-                            // Confirm the PaymentIntent
-                            STPPaymentHandler.shared().confirmPayment(withParams: paymentIntentParams, authenticationContext: paymentContext) { status, paymentIntent, error in
-                                switch status {
-                                case .succeeded:
-                                    // Your backend asynchronously fulfills the customer's order, e.g. via webhook
-                                    self.showAlert(title: "Success", message: "your stripe id \(paymentIntent?.stripeId)")
-                                    completion(.success, nil)
-                                case .failed:
-                                    completion(.error, error) // Report error
-                                case .canceled:
-                                    completion(.userCancellation, nil) // Customer cancelled
-                                @unknown default:
-                                    completion(.error, nil)
-                                }
-                            }
-                            
-                        }
+                     
                     }else {
                         self.showAlert(title: "Alert", message: "Something went wrog")
                     }
                     
                 }
-        }
-    }
+        
+        }}
     
     func paymentContext(_ paymentContext : STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         JSN.error("payment cotext delegate error ====>%@", error)

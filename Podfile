@@ -27,7 +27,7 @@ pod 'TextFieldEffects'
 
 pod 'UIViewUseful'
 
-pod 'Stripe', "~> 19.1.0"
+pod 'Stripe'
 
 
 

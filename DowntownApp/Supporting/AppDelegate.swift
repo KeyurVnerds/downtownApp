@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.overrideUserInterfaceStyle = .light
         }
         IQKeyboardManager.shared.enable = true
-        Stripe.setDefaultPublishableKey(publicKey)
+        Stripe.setDefaultPublishableKey("pk_test_51EC8ySL8Gx6rf2qzgh8aZ9SeEKhbwKM5yNzkRd05Hak5rjgn5JlUlRwnNuRBDEuAuRHTFGlhgCxQWIW1zPMH77ys004It6mfDQ") 
         // Override point for customization after application launch.
         return true
-    }
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -45,3 +45,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 
+}
