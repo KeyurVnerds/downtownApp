@@ -226,6 +226,9 @@ class OverlayView: UIViewController {
 //
 //
 //    }
+    @IBAction func onTapBuyAction(_ sender: UIControl) {
+        JSN.log("On Tap Buy ==>%@")
+    }
     
     
     func style() {
@@ -305,6 +308,8 @@ class OverlayView: UIViewController {
         }
     }
 }
+
+
 extension OverlayView: STPPaymentContextDelegate {
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
         let header = ["Authorization":"Bearer " + seckretKey]
